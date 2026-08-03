@@ -1,0 +1,21 @@
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:18.9.2-ce.0
+    container_name: gitlab
+    restart: always
+    # 修改成你的IP地址
+    hostname: 'YOUR_IP_ADDRESS'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        # 修改成你的IP地址
+        external_url 'http://YOUR_IP_ADDRESS:5401'
+        gitlab_rails['gitlab_shell_ssh_port'] = 5403
+        gitlab_rails['time_zone'] = 'Asia/Shanghai'
+    ports:
+      - '5401:5401'
+      - '5403:22'
+    volumes:
+      - './config:/etc/gitlab'
+      - './logs:/var/log/gitlab'
+      - './data:/var/opt/gitlab'
+    shm_size: '256m'
