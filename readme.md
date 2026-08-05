@@ -42,6 +42,7 @@
 ├── mysql/                    # MySQL 8.4
 ├── redis/                    # Redis 7.4
 ├── pgsql/                    # PostgreSQL 16
+├── minio/                    # MinIO（未阉割老版本）
 ├── openwebui/                # Open WebUI
 └── gitlab/                   # GitLab CE Compose + 运维 CLI
 ```
@@ -57,6 +58,7 @@
 | [mysql](mysql/) | MySQL 8.4（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](mysql/README.md) · [参数](docs/mysql/parameters.md) |
 | [redis](redis/) | Redis 7.4（仅密码 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](redis/README.md) · [参数](docs/redis/parameters.md) |
 | [pgsql](pgsql/) | PostgreSQL 16（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](pgsql/README.md) · [参数](docs/pgsql/parameters.md) |
+| [minio](minio/) | MinIO 未阉割版（admin / 12345678，默认公开读，AWS S3 直传） | `docker-compose.yml` | [模块说明](minio/README.md) · [访问策略](docs/minio/access.md) |
 | [openwebui](openwebui/) | Open WebUI（端口 3000，API URL/Key 按需填写） | `docker-compose.yml` | [模块说明](openwebui/README.md) |
 | [gitlab](gitlab/) | GitLab CE 单机 Compose + 运维命令 | `docker-compose.yml` · `./main.sh` | [模块说明](gitlab/README.md) · [踩坑详解](docs/gitlab/pitfalls.md) |
 
@@ -74,6 +76,9 @@ cd docker && ./install.sh
 cd mysql && docker compose up -d
 cd redis && docker compose up -d
 cd pgsql && docker compose up -d
+
+# MinIO（未阉割钉死版；Nginx 片段见 minio/nginx/minio.conf）
+cd minio && docker compose up -d
 
 # Open WebUI（按需取消注释 OPENAI_API_BASE_URL / OPENAI_API_KEY）
 cd openwebui && docker compose up -d

@@ -1,0 +1,60 @@
+# 镜像钉死未阉割社区版（勿用 latest）
+# 说明: RELEASE.2025-05-24 及之后 Web 控制台管理功能被大幅裁剪
+# 官方镜像: https://hub.docker.com/r/minio/minio
+# 反代片段: nginx/minio.conf
+# 直传示例: examples/（AWS S3 SDK）
+# 访问策略: policies/public-read.json（默认公开读）
+# 文档: docs/minio/README.md 、 docs/minio/access.md
+
+services:
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: minio
+    restart: always
+    environment:
+      # 控制台 / API 用户名（Access Key）
+      MINIO_ROOT_USER: "admin"
+      # 控制台 / API 密码（Secret Key，官方要求至少 8 位）
+      MINIO_ROOT_PASSWORD: "12345678"
+      # 通过 Nginx 反代对外提供 API 时填写（完整 URL，含协议与端口）
+      # MINIO_SERVER_URL: "https://s3.example.com"
+      # 通过 Nginx 反代对外提供 Console 时填写
+      # MINIO_BROWSER_REDIRECT_URL: "https://console.example.com"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./data:/data
+      # 可选：持久化 MinIO 配置目录
+      # - ./config:/root/.minio
+    command:
+      - server
+      - /data
+      - --address
+      - ":9000"
+      - --console-address
+      - ":9001"
+
+  # 启动后创建 data 桶并写入公开读策略（匿名 GetObject）
+  minio-init:
+    image: python:3.12-slim
+    container_name: minio-init
+    depends_on:
+      - minio
+    restart: "no"
+    working_dir: /work
+    volumes:
+      - ./scripts/ensure_public_read.py:/work/ensure_public_read.py:ro
+      - ./policies/public-read.json:/work/policies/public-read.json:ro
+    environment:
+      S3_ENDPOINT: "http://minio:9000"
+      AWS_ACCESS_KEY_ID: "admin"
+      AWS_SECRET_ACCESS_KEY: "12345678"
+      S3_BUCKET: "data"
+      S3_REGION: "us-east-1"
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -e
+        pip install -q boto3
+        python ensure_public_read.py
