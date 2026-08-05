@@ -42,6 +42,7 @@
 ├── mysql/                    # MySQL 8.4
 ├── redis/                    # Redis 7.4
 ├── pgsql/                    # PostgreSQL 16
+├── openwebui/                # Open WebUI
 └── gitlab/                   # GitLab CE Compose + 运维 CLI
 ```
 
@@ -56,6 +57,7 @@
 | [mysql](mysql/) | MySQL 8.4（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](mysql/README.md) |
 | [redis](redis/) | Redis 7.4（仅密码 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](redis/README.md) |
 | [pgsql](pgsql/) | PostgreSQL 16（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](pgsql/README.md) |
+| [openwebui](openwebui/) | Open WebUI（端口 3000，API URL/Key 按需填写） | `docker-compose.yml` | [模块说明](openwebui/README.md) |
 | [gitlab](gitlab/) | GitLab CE 单机 Compose + 运维命令 | `docker-compose.yml` · `./main.sh` | [模块说明](gitlab/README.md) · [踩坑详解](docs/gitlab/pitfalls.md) |
 
 ### 快速一览
@@ -72,6 +74,9 @@ cd docker && ./install.sh
 cd mysql && docker compose up -d
 cd redis && docker compose up -d
 cd pgsql && docker compose up -d
+
+# Open WebUI（按需取消注释 OPENAI_API_BASE_URL / OPENAI_API_KEY）
+cd openwebui && docker compose up -d
 
 # GitLab CE（先改 YOUR_IP_ADDRESS，再 compose up）
 cd gitlab && ./main.sh help

@@ -1,0 +1,13 @@
+services:
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:v0.11.0
+    container_name: openwebui
+    restart: always
+    ports:
+      - "3000:8080"
+    volumes:
+      - ./data:/app/backend/data
+    # 按需要填写后取消下方整段注释
+    # environment:
+    #   OPENAI_API_BASE_URL: "https://api.openai.com/v1"
+    #   OPENAI_API_KEY: "sk-xxx"
