@@ -36,7 +36,8 @@ docker run -d \
   -v "$(pwd)/data:/var/lib/mysql" \
   mysql:8.4 \
   --character-set-server=utf8mb4 \
-  --collation-server=utf8mb4_unicode_ci
+  --collation-server=utf8mb4_unicode_ci \
+  --sql-mode=ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
 ```
 
 ```bash
@@ -69,5 +70,6 @@ docker exec -it mysql mysqladmin ping -uroot -p123456
 ## 说明
 
 - 字符集默认 `utf8mb4`
+- 已显式开启 `ONLY_FULL_GROUP_BY`（随 `sql_mode` 一并设置）
 - `./data` 已 gitignore，勿把库文件提交进仓库
 - 密码仅作归档演示，生产请自行更换
