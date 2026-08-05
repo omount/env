@@ -1,4 +1,4 @@
-# Open WebUI
+﻿# Open WebUI
 
 官方镜像单机部署。Web 端口 `3000`，数据目录映射到 `./data`。  
 OpenAI 兼容接口的 Base URL / API Key 默认注释，按需要填写后启用。
@@ -20,8 +20,9 @@ OpenAI 兼容接口的 Base URL / API Key 默认注释，按需要填写后启�
 ### docker compose
 
 ```bash
-cd openwebui
+cd modules/ai/openwebui
 docker compose up -d
+# 或: ./esayenv.sh up openwebui
 ```
 
 ```bash
@@ -42,7 +43,7 @@ docker compose down
 与 compose 等价（需在 `openwebui` 目录执行）：
 
 ```bash
-cd openwebui
+cd modules/ai/openwebui
 mkdir -p data
 docker run -d \
   --name openwebui \
@@ -62,7 +63,7 @@ docker run -d \
 完整示例（已填写时）：
 
 ```bash
-cd openwebui
+cd modules/ai/openwebui
 mkdir -p data
 docker run -d \
   --name openwebui \
@@ -84,10 +85,12 @@ docker stop openwebui && docker rm openwebui
 | 项 | 值 |
 |----|-----|
 | 镜像 | `ghcr.io/open-webui/open-webui:v0.11.0` |
-| Web | `http://127.0.0.1:3000` |
+| Web | http://127.0.0.1:3000 |
+| 预置管理员 | **无**（首次打开页面自行注册，第一位用户为管理员） |
 | 数据卷 | `./data` → `/app/backend/data` |
-| `OPENAI_API_BASE_URL` | 默认注释，按需要填写 |
-| `OPENAI_API_KEY` | 默认注释，按需要填写 |
+| `OPENAI_API_BASE_URL` / `KEY` | 默认注释，对接 OpenAI 兼容 API 时在 compose 取消注释并填写 |
+
+浏览器打开 http://127.0.0.1:3000 ，按引导创建账号（自定邮箱/用户名/密码），之后用该账号登录。
 
 ## 验收
 

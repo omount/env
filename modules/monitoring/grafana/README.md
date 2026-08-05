@@ -26,14 +26,17 @@
 ## 一键运行
 
 ```bash
-cd grafana
+cd modules/monitoring/grafana
 docker compose up -d
+# 或: ./esayenv.sh up grafana
 ```
+
+浏览器打开 http://127.0.0.1:3001 ，用户 `admin`，密码 `123456` 登录。
 
 ### docker run（对照官方习惯写法）
 
 ```bash
-cd grafana
+cd modules/monitoring/grafana
 mkdir -p data
 docker run -d \
   --name grafana \

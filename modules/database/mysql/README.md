@@ -12,8 +12,9 @@
 ### docker compose
 
 ```bash
-cd mysql
+cd modules/database/mysql
 docker compose up -d
+# 或: ./esayenv.sh up mysql
 ```
 
 ```bash
@@ -26,7 +27,7 @@ docker compose down
 与 compose 等价（需在 `mysql` 目录执行，以便 `./data` 落在本模块下）：
 
 ```bash
-cd mysql
+cd modules/database/mysql
 mkdir -p data
 docker run -d \
   --name mysql \

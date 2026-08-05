@@ -12,8 +12,9 @@
 ### docker compose
 
 ```bash
-cd pgsql
+cd modules/database/pgsql
 docker compose up -d
+# 或: ./esayenv.sh up pgsql
 ```
 
 ```bash
@@ -26,7 +27,7 @@ docker compose down
 与 compose 等价（需在 `pgsql` 目录执行，以便 `./data` 落在本模块下）：
 
 ```bash
-cd pgsql
+cd modules/database/pgsql
 mkdir -p data
 docker run -d \
   --name pgsql \

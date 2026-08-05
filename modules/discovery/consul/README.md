@@ -1,22 +1,18 @@
 ﻿# Consul（单节点 server）
 
-对照 HashiCorp 官方 Docker 单节点 server 示例。镜像 `hashicorp/consul:1.21.3`，开启 UI，`bootstrap-expect=1`。
+对照 HashiCorp 官方 Docker 单节点示例。开启 UI；**默认未启用 ACL，无登录用户名密码**。
 
 ## 前置条件
 
 - Docker 与 Compose V2
-- 宿主机端口 `8500` / `8600` 空闲
+- 端口 `8500`（HTTP/UI）、`8600`（DNS）空闲
 
 ## 一键运行
 
 ```bash
-cd consul
+cd modules/discovery/consul
 docker compose up -d
-```
-
-```bash
-docker compose logs -f
-docker compose down
+# 或: ./esayenv.sh up consul
 ```
 
 ## 连接信息
@@ -25,9 +21,27 @@ docker compose down
 |----|-----|
 | 镜像 | `hashicorp/consul:1.21.3` |
 | UI / HTTP API | http://127.0.0.1:8500 |
-| DNS | `8600`（tcp/udp） |
-| ACL | 未启用（与官方单节点示意一致） |
+| DNS | `8600` tcp/udp |
+| ACL / 登录 | 未启用（打开 UI 即可操作演示集群） |
+| 节点名 | `server-1` |
 | 数据卷 | `./data` → `/consul/data` |
+
+启用 ACL 需按官方另行配置，本模板演示不加。
+
+## 客户端示例
+
+```bash
+docker exec consul consul members
+curl -s http://127.0.0.1:8500/v1/status/leader
+# 浏览器: http://127.0.0.1:8500
+```
+
+写 KV 示例：
+
+```bash
+docker exec consul consul kv put demo/hello world
+docker exec consul consul kv get demo/hello
+```
 
 ## 验收
 
@@ -35,20 +49,14 @@ docker compose down
 docker compose ps
 docker exec consul consul members
 curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8500/v1/status/leader
-# members 应看到 server-1；leader 接口期望 200
 ```
-
-浏览器：http://127.0.0.1:8500
 
 ## 说明
 
-- 单机演示；生产请 ≥3 台 server，见官方多节点 Compose 示例
-- 官方生产建议关注网络模式（`--net=host` 等），本模板用 bridge + 端口映射便于本机验收
-
-## 官方文档与仓库
-
 - 详解：[docs/consul/README.md](../../../docs/consul/README.md)
-- 部署文档：https://developer.hashicorp.com/consul/docs/deploy/server/docker
-- Docker 说明：https://developer.hashicorp.com/consul/docs/docker
-- 上游仓库：https://github.com/hashicorp/consul
-- 镜像：https://hub.docker.com/r/hashicorp/consul
+
+## 官方出处
+
+- https://developer.hashicorp.com/consul/docs/deploy/server/docker
+- 上游：https://github.com/hashicorp/consul
+- Hub：https://hub.docker.com/r/hashicorp/consul

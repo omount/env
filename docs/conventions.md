@@ -50,13 +50,30 @@ EsayEnv/
 
 在 `modules/<category>/<name>/` 新增模块时必须具备：
 
-1. `README.md`：用途、前置条件、步骤、验收命令；长文链接到 `docs/<module>/`  
+1. `README.md`：见下方 **3.1**（禁止只有「up -d + 官方链接」的低信息量说明）  
 2. 主入口：`install.sh` / `docker-compose.yml` / 明确命名的运维脚本  
 3. 版本钉死（禁止生产模板使用 `:latest`）  
 4. 机密与演示口令遵守第 9 节；禁止提交真实生产 token / 未脱敏密钥  
 5. 可选：`docs/<module>/pitfalls.md`、`parameters.md`、`install.md` 等长文  
 6. **官方文档 URL** 与（若为开源）**上游仓库地址**：见第 12 节  
 7. 在根 `catalog.yml` 追加一条记录  
+
+### 3.1 模块 README 必备结构（Compose）
+
+必须包含：
+
+| 节 | 内容 |
+|----|------|
+| 用途 | 一句话 |
+| 前置条件 | Docker、端口等 |
+| 一键运行 | `cd modules/...` 与可选 `./esayenv.sh up <id>` |
+| **连接信息表** | 镜像、主机、端口、**用户/密码或「无认证」**、数据卷、管理台 URL（如有） |
+| **客户端示例** | 至少一条可复制命令或连接串（含账号用法） |
+| 验收 | 可判定成功的命令 |
+| 说明 | 演示口令、生产勿用、附属文件 |
+| 官方出处 | 文档 / 上游 / Hub + `docs/<module>/` |
+
+安装类（bun / nodejs / docker）不强制连接信息表，但步骤与验收须完整。样板：`modules/database/mysql/README.md`。  
 
 ---
 

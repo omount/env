@@ -1,46 +1,64 @@
 # \<模块名\>
 
-路径建议：`modules/<category>/<name>/`
+路径：`modules/<category>/<name>/`
 
 ## 用途
 
 一句话说明本模块解决什么问题。
 
-## 官方出处
-
-- 官方文档：https://…  
-- 上游仓库：https://github.com/…  
-- 官方镜像页（若适用）：https://…  
-
 ## 前置条件
 
-- Docker Compose V2（或安装类所需系统）
+- Docker 与 Compose V2
+- 宿主机端口 `xxxx` 空闲
 
-## 使用
+## 一键运行
 
 ```bash
-# Compose 模块
 cd modules/<category>/<name>
 docker compose up -d
-# 或
-./esayenv.sh up <id>
+# 或（整仓）: ./esayenv.sh up <id>
+```
 
-# 安装类
-./install.sh
+```bash
+docker compose logs -f
+docker compose down
+```
+
+## 连接信息
+
+| 项 | 值 |
+|----|-----|
+| 镜像 | `repo:tag` |
+| 主机 | `127.0.0.1`（或宿主机 IP） |
+| 端口 | `xxxx` |
+| 用户 | `…`（无则写「无」） |
+| 密码 | `…`（无认证则写「无 / 未启用 ACL」） |
+| 管理台 | `http://127.0.0.1:xxxx`（无则删本行） |
+| 数据卷 | `./data` → 容器内路径 |
+
+## 客户端示例
+
+```bash
+# 至少一条可复制命令，写明如何带账号密码连接
 ```
 
 ## 验收
 
 ```bash
-# 填写可判定成功的命令
+docker compose ps
+# 期望健康或业务探活命令
 ```
 
-## Compose 约定
+## 说明
 
-- 默认最小可跑  
-- 可配置项写在 `docker-compose.yml` 注释中（建议值 + 配置方式：environment / command / 挂载 conf）  
-- 详见 `docs/conventions.md` 第 5.1 节  
+- 演示口令仅归档用，生产请更换
+- 可配置项见 `docker-compose.yml` 注释（建议值 + 配置方式）
 
-## 详细文档
+## 官方出处
 
-长文见 `docs/<模块名>/`（如有）。记得在根 `catalog.yml` 登记。
+- 详解（如有）：[docs/\<模块\>/](../../../docs/\<模块\>/)
+- 官方文档：https://…
+- 上游仓库：https://github.com/…
+- 镜像页：https://…
+
+登记：根目录 `catalog.yml`。

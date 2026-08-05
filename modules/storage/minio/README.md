@@ -21,8 +21,9 @@
 ### docker compose
 
 ```bash
-cd minio
+cd modules/storage/minio
 docker compose up -d
+# 或: ./esayenv.sh up minio
 ```
 
 ```bash
@@ -33,7 +34,7 @@ docker compose down
 ### docker run
 
 ```bash
-cd minio
+cd modules/storage/minio
 mkdir -p data
 docker run -d \
   --name minio \

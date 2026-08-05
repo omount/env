@@ -11,7 +11,7 @@
 
 ## 前置条件
 
-- 已安装 Docker 与 Compose V2（可用本仓库 `docker/` 模块）
+- 已安装 Docker 与 Compose V2（可用本仓库 `modules/runtime/docker/`）
 - 建议内存 ≥ 4GB（生产建议更高）
 - 将 `docker-compose.yml` 中的 `YOUR_IP_ADDRESS` 换成实际 IP
 
@@ -22,13 +22,23 @@
 | `docker-compose.yml` | 镜像钉死 `gitlab/gitlab-ce:18.9.2-ce.0`，HTTP `5401`，SSH `5403` |
 | `main.sh` | 运维入口：进容器 / 查初始密码 / 重置 root 密码 |
 
+## 连接信息（部署完成后）
+
+| 项 | 值 |
+|----|-----|
+| Web | `http://<YOUR_IP_ADDRESS>:5401` |
+| 用户 | `root` |
+| 密码 | 首次用 `./main.sh show-password` 查看（`initial_root_password`，约 24 小时后文件可能删除） |
+| SSH Git | 端口 `5403`（以 compose 为准） |
+
 ## 首次部署
 
 ```bash
-mkdir -p /opt/gitlab && cd /opt/gitlab
-# 复制本目录 docker-compose.yml 到此处，改 YOUR_IP_ADDRESS
+cd modules/git/gitlab
+# 或复制本目录到目标机后改 YOUR_IP_ADDRESS
 mkdir -p config logs data
 docker compose up -d
+# 或: ./esayenv.sh up gitlab
 docker logs -f gitlab
 ```
 

@@ -38,19 +38,20 @@
 ## 一键运行
 
 ```bash
-cd elk
+cd modules/monitoring/elk
 mkdir -p data/elasticsearch data/kibana data/logstash
 docker compose up -d
+# 或: ./esayenv.sh up elk
 ```
 
-验收：
+## 客户端示例
 
 ```bash
 # HTTPS + CA（证书在 named volume certs 内；容器内探测）
 docker compose exec es01 curl -s --cacert config/certs/ca/ca.crt -u elastic:123456 https://localhost:9200
 
-# Kibana
-# 浏览器 http://127.0.0.1:5601 ，用户 elastic / 密码 123456
+# Kibana：浏览器 http://127.0.0.1:5601
+# 用户 elastic / 密码 123456
 ```
 
 停止：`docker compose down`（官方：数据在 volume/绑定目录中保留）

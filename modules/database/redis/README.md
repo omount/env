@@ -12,8 +12,9 @@
 ### docker compose
 
 ```bash
-cd redis
+cd modules/database/redis
 docker compose up -d
+# 或: ./esayenv.sh up redis
 ```
 
 ```bash
@@ -26,7 +27,7 @@ docker compose down
 与 compose 等价（需在 `redis` 目录执行，以便 `./data` 落在本模块下）：
 
 ```bash
-cd redis
+cd modules/database/redis
 mkdir -p data
 docker run -d \
   --name redis \
