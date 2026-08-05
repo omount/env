@@ -1,4 +1,4 @@
-# MinIO 浏览器直传（Presigned PUT，AWS S3 SDK）
+﻿# MinIO 浏览器直传（Presigned PUT，AWS S3 SDK）
 
 业务服务用 **AWS S3 兼容 SDK** 签发短期预签名 URL，客户端把文件直接 PUT 到 MinIO（不经过业务服务器中转文件流）。
 
@@ -27,11 +27,11 @@
 
 | 语言 | SDK | 路径 |
 |------|-----|------|
-| Go | `aws-sdk-go-v2` | [`minio/examples/go`](../../minio/examples/go) |
-| Python | `boto3` | [`minio/examples/python`](../../minio/examples/python) |
-| Node.js | `@aws-sdk/client-s3` | [`minio/examples/nodejs`](../../minio/examples/nodejs) |
+| Go | `aws-sdk-go-v2` | [`minio/examples/go`](../../modules/storage/minio/examples/go) |
+| Python | `boto3` | [`minio/examples/python`](../../modules/storage/minio/examples/python) |
+| Node.js | `@aws-sdk/client-s3` | [`minio/examples/nodejs`](../../modules/storage/minio/examples/nodejs) |
 
-步骤见 [`minio/examples/README.md`](../../minio/examples/README.md)。
+步骤见 [`minio/examples/README.md`](../../modules/storage/minio/examples/README.md)。
 
 ## 参考
 

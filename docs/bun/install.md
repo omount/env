@@ -1,6 +1,6 @@
-# Bun 安装说明
+﻿# Bun 安装说明
 
-模块目录：[`bun/`](../../bun/)
+模块目录：[`bun/`](../../modules/runtime/bun/)
 
 ## 官方出处
 
@@ -14,7 +14,7 @@
 
 ## 方式一：官方安装脚本（推荐）
 
-本仓库封装：[`bun/install.sh`](../../bun/install.sh)
+本仓库封装：[`bun/install.sh`](../../modules/runtime/bun/install.sh)
 
 ```bash
 cd bun
@@ -39,7 +39,7 @@ powershell -c "irm bun.sh/install.ps1 | iex"
 
 官方说明：编译 Bun **需要先安装一个已发布的 Bun**（用于代码生成与构建脚本），再克隆仓库构建。
 
-本仓库封装：[`bun/build-from-source.sh`](../../bun/build-from-source.sh)
+本仓库封装：[`bun/build-from-source.sh`](../../modules/runtime/bun/build-from-source.sh)
 
 ```bash
 cd bun

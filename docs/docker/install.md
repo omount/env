@@ -1,6 +1,6 @@
-# Docker 安装与部署指引
+﻿# Docker 安装与部署指引
 
-模块目录：[`docker/`](../../docker/)
+模块目录：[`docker/`](../../modules/runtime/docker/)
 
 ## EsayEnv 推荐
 
@@ -125,7 +125,7 @@ https://docs.docker.com/engine/install/binaries/
 
 出处：https://github.com/moby/moby  
 
-本仓库封装：[`docker/build-from-source.sh`](../../docker/build-from-source.sh)
+本仓库封装：[`docker/build-from-source.sh`](../../modules/runtime/docker/build-from-source.sh)
 
 ```bash
 cd docker

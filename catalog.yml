@@ -1,0 +1,191 @@
+# EsayEnv module catalog（易解析扁平块；esayenv.sh 依赖此格式）
+# 字段: id / category / path / summary / official_docs / upstream / ports / status
+
+- id: bun
+  category: runtime
+  path: modules/runtime/bun
+  summary: Bun 运行时安装（官方脚本 / 编译）
+  official_docs: https://bun.sh/docs/installation
+  upstream: https://github.com/oven-sh/bun
+  ports: ""
+  status: stable
+
+- id: nodejs
+  category: runtime
+  path: modules/runtime/nodejs
+  summary: Node.js 安装（nvm / 编译）
+  official_docs: https://github.com/nvm-sh/nvm#install--update-script
+  upstream: https://github.com/nodejs/node
+  ports: ""
+  status: stable
+
+- id: docker
+  category: runtime
+  path: modules/runtime/docker
+  summary: Docker Engine / Desktop 安装
+  official_docs: https://docs.docker.com/engine/install/
+  upstream: https://github.com/moby/moby
+  ports: ""
+  status: stable
+
+- id: mysql
+  category: database
+  path: modules/database/mysql
+  summary: MySQL 8.4 单机
+  official_docs: https://hub.docker.com/_/mysql
+  upstream: https://github.com/mysql/mysql-server
+  ports: "3306"
+  status: stable
+
+- id: redis
+  category: database
+  path: modules/database/redis
+  summary: Redis 7.4 单机
+  official_docs: https://hub.docker.com/_/redis
+  upstream: https://github.com/redis/redis
+  ports: "6379"
+  status: stable
+
+- id: pgsql
+  category: database
+  path: modules/database/pgsql
+  summary: PostgreSQL 16 单机
+  official_docs: https://hub.docker.com/_/postgres
+  upstream: https://github.com/postgres/postgres
+  ports: "5432"
+  status: stable
+
+- id: mongodb
+  category: database
+  path: modules/database/mongodb
+  summary: MongoDB 单机
+  official_docs: https://hub.docker.com/_/mongo
+  upstream: https://github.com/mongodb/mongo
+  ports: "27017"
+  status: stable
+
+- id: minio
+  category: storage
+  path: modules/storage/minio
+  summary: MinIO 对象存储
+  official_docs: https://min.io/docs/minio/container/index.html
+  upstream: https://github.com/minio/minio
+  ports: "9000,9001"
+  status: stable
+
+- id: rabbitmq
+  category: mq
+  path: modules/mq/rabbitmq
+  summary: RabbitMQ 单机（management）
+  official_docs: https://hub.docker.com/_/rabbitmq
+  upstream: https://github.com/rabbitmq/rabbitmq-server
+  ports: "5672,15672"
+  status: stable
+
+- id: kafka
+  category: mq
+  path: modules/mq/kafka
+  summary: Apache Kafka 单机（KRaft）
+  official_docs: https://kafka.apache.org/documentation/#quickstart
+  upstream: https://github.com/apache/kafka
+  ports: "9092"
+  status: stable
+
+- id: nacos
+  category: discovery
+  path: modules/discovery/nacos
+  summary: Nacos 单机 Derby
+  official_docs: https://github.com/nacos-group/nacos-docker
+  upstream: https://github.com/alibaba/nacos
+  ports: "8080,8848,9848"
+  status: stable
+
+- id: consul
+  category: discovery
+  path: modules/discovery/consul
+  summary: Consul 单节点 server
+  official_docs: https://developer.hashicorp.com/consul/docs/deploy/server/docker
+  upstream: https://github.com/hashicorp/consul
+  ports: "8500,8600"
+  status: stable
+
+- id: nginx
+  category: gateway
+  path: modules/gateway/nginx
+  summary: Nginx 反向代理
+  official_docs: https://hub.docker.com/_/nginx
+  upstream: https://github.com/nginx/nginx
+  ports: "8088"
+  status: stable
+
+- id: gitlab
+  category: git
+  path: modules/git/gitlab
+  summary: GitLab CE 单机
+  official_docs: https://docs.gitlab.com/ee/install/docker.html
+  upstream: https://gitlab.com/gitlab-org/gitlab
+  ports: "80,443,22"
+  status: stable
+
+- id: adminer
+  category: gui
+  path: modules/gui/adminer
+  summary: Adminer 数据库 Web GUI
+  official_docs: https://hub.docker.com/_/adminer
+  upstream: https://github.com/vrana/adminer
+  ports: "8081"
+  status: stable
+
+- id: mailpit
+  category: mail
+  path: modules/mail/mailpit
+  summary: Mailpit 开发用邮件捕获
+  official_docs: https://github.com/axllent/mailpit
+  upstream: https://github.com/axllent/mailpit
+  ports: "1025,8025"
+  status: stable
+
+- id: elk
+  category: monitoring
+  path: modules/monitoring/elk
+  summary: Elasticsearch + Logstash + Kibana
+  official_docs: https://www.elastic.co/guide/en/elasticsearch/reference/8.17/docker.html
+  upstream: https://github.com/elastic/elasticsearch
+  ports: "9200,5601,5044"
+  status: stable
+
+- id: grafana
+  category: monitoring
+  path: modules/monitoring/grafana
+  summary: Grafana 可视化
+  official_docs: https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/
+  upstream: https://github.com/grafana/grafana
+  ports: "3001"
+  status: stable
+
+- id: prometheus
+  category: monitoring
+  path: modules/monitoring/prometheus
+  summary: Prometheus 指标采集
+  official_docs: https://prometheus.io/docs/prometheus/latest/installation/
+  upstream: https://github.com/prometheus/prometheus
+  ports: "9090"
+  status: stable
+
+- id: openwebui
+  category: ai
+  path: modules/ai/openwebui
+  summary: Open WebUI
+  official_docs: https://docs.openwebui.com/
+  upstream: https://github.com/open-webui/open-webui
+  ports: "3000"
+  status: stable
+
+- id: ollama
+  category: ai
+  path: modules/ai/ollama
+  summary: Ollama 本地大模型
+  official_docs: https://github.com/ollama/ollama/blob/main/docs/docker.md
+  upstream: https://github.com/ollama/ollama
+  ports: "11434"
+  status: stable

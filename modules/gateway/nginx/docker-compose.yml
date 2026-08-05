@@ -1,0 +1,28 @@
+# 官方出处（验收依据）:
+#   Docker Hub: https://hub.docker.com/_/nginx
+#   上游: https://github.com/nginx/nginx
+#   配置指南: https://nginx.org/en/docs/
+#   本仓库: docs/nginx/README.md
+# 最小可跑: 官方默认欢迎页；宿主机 8088->80（避开常见 80 占用）
+
+services:
+  nginx:
+    image: nginx:1.27.4
+    container_name: nginx
+    restart: always
+    ports:
+      - "8088:80"
+      # [ports] HTTPS 示例
+      # - "8443:443"
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+      # [挂载 conf] 建议: 自定义站点配置
+      # - ./conf/default.conf:/etc/nginx/conf.d/default.conf:ro
+      # [挂载 conf] 建议: 完整 nginx.conf
+      # - ./conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      # [挂载] TLS 证书目录
+      # - ./certs:/etc/nginx/certs:ro
+    # [environment] 时区等非官方核心项可按需加
+    # environment:
+    #   TZ: Asia/Shanghai
+    # [command] 测试配置: nginx -t（进入容器执行）

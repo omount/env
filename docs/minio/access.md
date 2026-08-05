@@ -1,7 +1,7 @@
-# MinIO 公开读 / 签名读
+﻿# MinIO 公开读 / 签名读
 
-对应模块：[`minio/`](../../minio/)  
-策略文件：[`minio/policies/public-read.json`](../../minio/policies/public-read.json)
+对应模块：[`minio/`](../../modules/storage/minio/)  
+策略文件：[`minio/policies/public-read.json`](../../modules/storage/minio/policies/public-read.json)
 
 ## 本项目默认
 

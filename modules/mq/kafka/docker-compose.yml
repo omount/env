@@ -1,0 +1,43 @@
+# 官方出处（验收依据）:
+#   Apache Kafka Quick Start: https://kafka.apache.org/documentation/#quickstart
+#   官方镜像: https://hub.docker.com/r/apache/kafka
+#   上游: https://github.com/apache/kafka
+#   KRaft 单节点示例参考官方 Docker 说明
+#   本仓库: docs/kafka/README.md
+# 最小可跑: 单节点 KRaft，对外 9092
+
+services:
+  kafka:
+    image: apache/kafka:3.9.0
+    container_name: kafka
+    restart: always
+    ports:
+      - "9092:9092"
+    environment:
+      # [environment] KRaft 进程角色 — 建议: broker,controller（单机合并）
+      KAFKA_PROCESS_ROLES: broker,controller
+      # [environment] 节点 ID — 建议: 1
+      KAFKA_NODE_ID: 1
+      # [environment] controller 法定人数 — 单机建议: 1@localhost:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      # [environment] 监听器
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://127.0.0.1:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      # [environment] 单机可不创建主题副本检查
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      # [environment] 建议: 日志保留小时（演示可缩短）
+      # KAFKA_LOG_RETENTION_HOURS: "168"
+      # [environment] 建议: 单日志段大小
+      # KAFKA_LOG_SEGMENT_BYTES: "1073741824"
+      # [environment] 自动创建主题 — 建议生产 false
+      # KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    volumes:
+      - ./data:/var/lib/kafka/data
+      # [挂载 conf] 复杂场景可挂 server.properties（路径以镜像文档为准）
+      # - ./conf/server.properties:/mnt/shared/config/server.properties:ro

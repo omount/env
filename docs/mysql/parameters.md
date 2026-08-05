@@ -1,6 +1,6 @@
-# MySQL 官方镜像参数说明（mysql:8.4）
+﻿# MySQL 官方镜像参数说明（mysql:8.4）
 
-对应 Compose：[`mysql/docker-compose.yml`](../../mysql/docker-compose.yml)
+对应 Compose：[`mysql/docker-compose.yml`](../../modules/database/mysql/docker-compose.yml)
 
 ## 官方文档
 

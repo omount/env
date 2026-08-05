@@ -1,6 +1,6 @@
-# PostgreSQL 官方镜像参数说明（postgres:16）
+﻿# PostgreSQL 官方镜像参数说明（postgres:16）
 
-对应 Compose：[`pgsql/docker-compose.yml`](../../pgsql/docker-compose.yml)
+对应 Compose：[`pgsql/docker-compose.yml`](../../modules/database/pgsql/docker-compose.yml)
 
 ## 官方文档
 

@@ -27,24 +27,28 @@
 
 ```text
 EsayEnv/
-├── README.md              # 总索引
-├── LICENSE                # MIT © omount
+├── README.md                 # 总索引
+├── LICENSE                   # MIT © omount
+├── catalog.yml               # 模块清单（esayenv.sh 解析）
+├── esayenv.sh                # 统一入口：list / up / down / path
 ├── docs/
-│   ├── conventions.md     # 本规范（唯一权威）
-│   └── <module>/          # 模块长文（安装、参数、踩坑、验收等）
-├── templates/module/      # 新模块脚手架
-└── <module>/              # 一工具 / 一服务一目录
+│   ├── conventions.md        # 本规范（唯一权威）
+│   └── <module>/             # 模块长文（扁平，不强制按 category）
+├── templates/module/         # 新模块脚手架
+└── modules/<category>/<name>/  # 分级：一工具 / 一服务一目录
 ```
 
 - 根 `README.md`：索引与原则，不堆长教程  
+- 模块路径：`modules/<category>/<name>/`（如 `modules/database/mysql`）  
 - 模块 `README.md`：用途、前置、步骤、验收，长文链到 `docs/<module>/`  
-- 详细说明**只**放 `docs/`
+- 详细说明**只**放 `docs/`  
+- 新增模块必须登记根目录 `catalog.yml`  
 
 ---
 
 ## 3. 模块必备
 
-新增顶层目录时必须具备：
+在 `modules/<category>/<name>/` 新增模块时必须具备：
 
 1. `README.md`：用途、前置条件、步骤、验收命令；长文链接到 `docs/<module>/`  
 2. 主入口：`install.sh` / `docker-compose.yml` / 明确命名的运维脚本  
@@ -52,6 +56,7 @@ EsayEnv/
 4. 机密与演示口令遵守第 9 节；禁止提交真实生产 token / 未脱敏密钥  
 5. 可选：`docs/<module>/pitfalls.md`、`parameters.md`、`install.md` 等长文  
 6. **官方文档 URL** 与（若为开源）**上游仓库地址**：见第 12 节  
+7. 在根 `catalog.yml` 追加一条记录  
 
 ---
 
@@ -71,6 +76,18 @@ EsayEnv/
 - 变更 IP / 端口时同步：`hostname`、`external_url`、`ports` 与 SSH 相关配置  
 - 生产模板镜像 tag 钉死，禁止依赖 `:latest`  
 
+### 5.1 最小可跑 + 注释全量可配置（强制）
+
+Compose 模块须同时满足：
+
+1. **最小可跑**：未额外取消注释即可 `docker compose up -d` 成功  
+2. **注释收录可配置项**：官方镜像文档中的常用 env / command / 挂载 conf，以注释列出，禁止只写「自行查文档」  
+3. **每条注释含**：配置项名、**建议值**、**配置方式**（`environment` | `command` | 挂载 conf 路径）、一句用途  
+4. 文件头含：官方文档 URL、上游仓库、镜像页、本仓库 `docs/<module>/` 路径  
+5. 项过多时：compose 注释核心项 + `docs/<module>/parameters.md` 全量表，且 compose 头指向该文档  
+
+仅 `install.sh` 的 runtime 模块（bun / nodejs / docker）不强制本条。  
+
 ---
 
 ## 6. 文档与 Git
@@ -78,7 +95,7 @@ EsayEnv/
 - 详细文档只放 `docs/`  
 - 提交说明使用中文（仅在明确要求提交时）  
 - 不提交 `.env` 生产机密、初始密码文件、未脱敏密钥  
-- `.gitignore` 屏蔽运行时数据（`**/data/**`，保留 `data/.gitignore`）、`node_modules`、示例 `go.sum`、编译工作区（如 `bun/src/`、`docker/src/`）等非主体内容  
+- `.gitignore` 屏蔽运行时数据（`**/data/**`，保留 `data/.gitignore`）、`node_modules`、示例 `go.sum`、编译工作区（如 `modules/runtime/bun/src/` 等）等非主体内容  
 
 ---
 
@@ -92,10 +109,11 @@ EsayEnv/
 ## 8. 新增模块流程
 
 ```bash
-cp -r templates/module <新模块名>
-# 1. 编辑 <新模块名>/README.md 与入口脚本（或 compose）
-# 2. 需要长文时创建 docs/<新模块名>/
-# 3. 在根 README.md 模块表中追加一行
+cp -r templates/module modules/<category>/<name>
+# 1. 编辑 README 与 docker-compose.yml / install.sh（Compose 遵守第 5.1 节）
+# 2. 需要长文时创建 docs/<name>/
+# 3. 在 catalog.yml 追加一条；更新根 README 对应分类表
+# 4. 可用 ./esayenv.sh path <id> 校验路径
 ```
 
 ---
@@ -136,8 +154,8 @@ cp -r templates/module <新模块名>
 | 项 | 约定 |
 |----|------|
 | 官方脚本出处 | https://bun.sh/docs/installation ；Linux/macOS：https://bun.sh/install ；Windows：https://bun.sh/install.ps1 |
-| 本仓库脚本 | `bun/install.sh`（调用上述官方脚本） |
-| 编译方案 | `bun/build-from-source.sh`；出处 https://bun.com/docs/project/contributing 、https://github.com/oven-sh/bun |
+| 本仓库脚本 | `modules/runtime/bun/install.sh`（调用上述官方脚本） |
+| 编译方案 | `modules/runtime/bun/build-from-source.sh`；出处 https://bun.com/docs/project/contributing 、https://github.com/oven-sh/bun |
 | 详解 | `docs/bun/install.md` |
 
 ### 10.2 Docker（已落地）
@@ -147,8 +165,8 @@ cp -r templates/module <新模块名>
 | 官方出处 | Engine：https://docs.docker.com/engine/install/ ；脚本：https://get.docker.com （https://github.com/docker/docker-install）；Ubuntu：https://docs.docker.com/engine/install/ubuntu/ |
 | Windows | Docker Desktop：https://docs.docker.com/desktop/setup/install/windows-install/ |
 | macOS | Docker Desktop：https://docs.docker.com/desktop/setup/install/mac-install/ |
-| Linux 本仓库脚本 | `docker/install.sh`（get.docker.com）、`docker/ubuntu-install.sh`（官方 apt 源） |
-| 编译方案 | `docker/build-from-source.sh`（Moby：https://github.com/moby/moby）；另可参考官方二进制：https://docs.docker.com/engine/install/binaries/ |
+| Linux 本仓库脚本 | `modules/runtime/docker/install.sh`（get.docker.com）、`ubuntu-install.sh`（官方 apt 源） |
+| 编译方案 | `modules/runtime/docker/build-from-source.sh`（Moby：https://github.com/moby/moby）；另可参考官方二进制：https://docs.docker.com/engine/install/binaries/ |
 | 详解 | `docs/docker/install.md` |
 | 部署推荐 | 装好 Docker 后，各中间件模块优先 `docker compose up -d` |
 
@@ -157,8 +175,8 @@ cp -r templates/module <新模块名>
 | 项 | 约定 |
 |----|------|
 | 官方出处 | https://nodejs.org/en/download ；nvm：https://github.com/nvm-sh/nvm#install--update-script（`v0.40.6`） |
-| 本仓库脚本 | `nodejs/install.sh`（`curl -o- .../v0.40.6/install.sh \| bash` + `nvm install --lts`） |
-| 编译方案 | `nodejs/build-from-source.sh`；出处 https://github.com/nodejs/node/blob/main/BUILDING.md |
+| 本仓库脚本 | `modules/runtime/nodejs/install.sh`（`curl -o- .../v0.40.6/install.sh \| bash` + `nvm install --lts`） |
+| 编译方案 | `modules/runtime/nodejs/build-from-source.sh`；出处 https://github.com/nodejs/node/blob/main/BUILDING.md |
 | 详解 | `docs/nodejs/install.md` |
 | Windows | 官网安装包或 nvm-windows（脚本内提示） |
 

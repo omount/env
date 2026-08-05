@@ -1,0 +1,31 @@
+# 官方出处（验收依据）:
+#   Docker Hub: https://hub.docker.com/_/mongo
+#   上游仓库: https://github.com/mongodb/mongo
+#   镜像环境变量: https://hub.docker.com/_/mongo（Environment Variables）
+#   本仓库: docs/mongodb/README.md
+# 最小可跑: root / 123456；数据 ./data
+# 更多项取消下方注释启用（配置方式已标注）
+
+services:
+  mongodb:
+    image: mongo:7.0.16
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      # [environment] 建议值: root — 超级用户名
+      MONGO_INITDB_ROOT_USERNAME: root
+      # [environment] 建议值: 123456 — 演示口令（密码递进）
+      MONGO_INITDB_ROOT_PASSWORD: "123456"
+      # [environment] 建议值: app — 首次初始化库名（可选）
+      # MONGO_INITDB_DATABASE: app
+    volumes:
+      - ./data:/data/db
+      # [挂载 conf] 建议: 自定义 mongod.conf
+      # - ./conf/mongod.conf:/etc/mongo/mongod.conf:ro
+    # [command] 建议: 指定配置文件启动
+    # command: ["mongod", "--config", "/etc/mongo/mongod.conf"]
+    # [command] 建议值: 绑定地址（容器内通常 0.0.0.0）
+    # command: ["mongod", "--bind_ip_all"]
+    # [environment] WiredTiger 缓存等高级项请用挂载 conf，见官方 Configuration File Options

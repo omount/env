@@ -1,0 +1,26 @@
+# 官方出处（验收依据）:
+#   官方文档: https://…
+#   上游仓库: https://github.com/…
+#   镜像页: https://…
+#   本仓库: docs/<module>/README.md
+# 最小可跑：保留未注释项即可 up -d
+# 可配置项：取消注释启用；每条注明 [environment|command|挂载 conf] + 建议值
+
+services:
+  app:
+    image: example/image:1.0.0
+    container_name: example
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      # [environment] 建议值: demo — 用途说明
+      EXAMPLE_OPTION: demo
+      # [environment] 建议值: 123456 — 演示口令
+      # EXAMPLE_PASSWORD: "123456"
+    volumes:
+      - ./data:/data
+      # [挂载 conf] 建议路径: ./conf/app.conf:/etc/app/app.conf:ro
+      # - ./conf/app.conf:/etc/app/app.conf:ro
+    # [command] 建议: 覆盖入口时取消注释
+    # command: ["app", "--flag", "value"]

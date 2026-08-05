@@ -1,6 +1,6 @@
-# Redis 官方镜像参数说明（redis:7.4）
+﻿# Redis 官方镜像参数说明（redis:7.4）
 
-对应 Compose：[`redis/docker-compose.yml`](../../redis/docker-compose.yml)
+对应 Compose：[`redis/docker-compose.yml`](../../modules/database/redis/docker-compose.yml)
 
 ## 官方文档
 

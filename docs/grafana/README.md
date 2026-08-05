@@ -1,6 +1,6 @@
-# Grafana 部署说明（对照官方）
+﻿# Grafana 部署说明（对照官方）
 
-对应模块：[`grafana/`](../../grafana/)
+对应模块：[`grafana/`](../../modules/monitoring/grafana/)
 
 ## 验收依据
 

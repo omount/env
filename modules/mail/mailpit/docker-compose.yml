@@ -1,0 +1,26 @@
+# 官方出处（验收依据）:
+#   上游 / 文档: https://github.com/axllent/mailpit
+#   镜像: https://hub.docker.com/r/axllent/mailpit
+#   本仓库: docs/mailpit/README.md
+# 最小可跑: SMTP 1025 + UI 8025；开发捕获邮件，非生产投递
+
+services:
+  mailpit:
+    image: axllent/mailpit:v1.22.3
+    container_name: mailpit
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    # 可配置项（取消注释整块 environment 后启用）:
+    # [environment] MP_UI_AUTH 建议: admin:123456 — UI 基本认证
+    # [environment] MP_SMTP_AUTH_ACCEPT_ANY 建议: "true" — 开发 SMTP
+    # [environment] MP_SMTP_AUTH_ALLOW_INSECURE 建议: "true"
+    # [environment] MP_MAX_MESSAGES 建议: "500"
+    # [environment] MP_DATABASE 建议: /data/mailpit.db
+    # environment:
+    #   MP_UI_AUTH: "admin:123456"
+    #   MP_MAX_MESSAGES: "500"
+    #   MP_DATABASE: /data/mailpit.db
+    volumes:
+      - ./data:/data

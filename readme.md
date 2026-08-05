@@ -2,152 +2,126 @@
 
 **让天下没有难配置的环境**
 
-可复用的安装脚本与生产级部署经验归档（ADS：Archive Deploy Standard）。把「装得上、起得来、踩过的坑不再踩第二次」固化为版本钉死的模块资产。
+版本钉死的 Docker Compose / 安装脚本归档（ADS）。对照官方文档编写与验收，一分类一目了然，一键拉起。
 
-> **推荐**：中间件与业务组件优先使用 **Docker / Compose** 部署（见 [docker/](docker/) 与 [docs/docker/install.md](docs/docker/install.md)）。
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Compose](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
+[![Modules](https://img.shields.io/badge/modules-21+-green.svg)](catalog.yml)
 
----
-
-## 定位
-
-| 是 | 不是 |
-|----|------|
-| 运维脚本与 Compose 模板库 | 业务应用代码库 |
-| 实战沉淀（含踩坑与验收） | 未经验证的命令堆砌 |
-| 一工具 / 一服务一目录 | 大一统万能安装器 |
-
-权威规范：[docs/conventions.md](docs/conventions.md)
+权威规范：[docs/conventions.md](docs/conventions.md) · 模块清单：[catalog.yml](catalog.yml)
 
 ---
 
-## 设计原则
+## Quick Start
 
-1. **版本钉死** — 生产模板禁止 `:latest`，镜像与安装通道可追溯  
-2. **可执行入口** — `install.sh` / `main.sh` 真脚本，而非注释备忘  
-3. **文档分层** — 根 README 索引；模块短说明；长文进 `docs/<module>/`  
-4. **机密零入库** — 占位符（如 `YOUR_IP_ADDRESS`），不提交密码与 token  
-5. **变更克制** — 只改需求范围，不擅自替换既定技术路径  
-6. **Docker 优先** — 能容器化的服务优先 Compose 一键拉起  
-7. **对照官方** — 脚本与部署对照官方文档编写/验收；开源项目标注上游仓库（见 [docs/conventions.md](docs/conventions.md) 第 12 节）  
+```bash
+# 列表
+./esayenv.sh list
 
----
+# 拉起（需已安装 Docker）
+./esayenv.sh up mysql
+./esayenv.sh up redis
 
-## 仓库结构
+# 停止
+./esayenv.sh down mysql
+```
 
-```text
-EsayEnv/
-├── README.md                 # 本页：总览与分类索引
-├── LICENSE                   # MIT © omount
-├── docs/                     # 长文与规范（含 conventions.md）
-├── templates/module/         # 新模块脚手架
-├── bun/ nodejs/ docker/      # 运行时 / 基础
-├── mysql/ redis/ pgsql/ minio/
-├── nacos/ consul/            # 注册配置中心
-├── elk/ grafana/             # 可观测性
-└── openwebui/ gitlab/        # 应用 / 平台
+Windows 请用 **Git Bash** 或 WSL 执行 `esayenv.sh`。亦可：
+
+```bash
+cd modules/database/mysql && docker compose up -d
 ```
 
 ---
 
 ## 模块目录（分类）
 
+路径根：`modules/<category>/<name>/`
+
 ### 运行时 / 基础
 
-| 模块 | 能力 | 入口 | 文档 |
-|------|------|------|------|
-| [bun](bun/) | 安装 Bun（官方脚本 / 编译） | `./install.sh` · `./build-from-source.sh` | [模块说明](bun/README.md) · [安装详解](docs/bun/install.md) |
-| [nodejs](nodejs/) | 安装 Node.js（nvm / 编译） | `./install.sh` · `./build-from-source.sh` | [模块说明](nodejs/README.md) · [安装详解](docs/nodejs/install.md) |
-| [docker](docker/) | Windows / Linux / macOS 安装 Docker | `./install.sh` · `./ubuntu-install.sh` · `./build-from-source.sh` | [模块说明](docker/README.md) · [安装详解](docs/docker/install.md) |
+| 模块 | 说明 | 入口 |
+|------|------|------|
+| [bun](modules/runtime/bun/) | Bun 安装 | `install.sh` |
+| [nodejs](modules/runtime/nodejs/) | Node.js（nvm） | `install.sh` |
+| [docker](modules/runtime/docker/) | Docker 安装 | `install.sh` |
 
 ### 数据存储
 
-| 模块 | 能力 | 入口 | 文档 |
-|------|------|------|------|
-| [mysql](mysql/) | MySQL 8.4（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](mysql/README.md) · [参数](docs/mysql/parameters.md) |
-| [redis](redis/) | Redis 7.4（仅密码 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](redis/README.md) · [参数](docs/redis/parameters.md) |
-| [pgsql](pgsql/) | PostgreSQL 16（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](pgsql/README.md) · [参数](docs/pgsql/parameters.md) |
-| [minio](minio/) | MinIO 未阉割版（admin / 12345678，默认公开读，AWS S3 直传） | `docker-compose.yml` | [模块说明](minio/README.md) · [访问策略](docs/minio/access.md) |
+| 模块 | 说明 | 端口 |
+|------|------|------|
+| [mysql](modules/database/mysql/) | MySQL 8.4 | 3306 |
+| [redis](modules/database/redis/) | Redis 7.4 | 6379 |
+| [pgsql](modules/database/pgsql/) | PostgreSQL 16 | 5432 |
+| [mongodb](modules/database/mongodb/) | MongoDB 7.0 | 27017 |
+| [minio](modules/storage/minio/) | MinIO | 9000/9001 |
+
+### 消息队列
+
+| 模块 | 说明 | 端口 |
+|------|------|------|
+| [rabbitmq](modules/mq/rabbitmq/) | RabbitMQ management | 5672/15672 |
+| [kafka](modules/mq/kafka/) | Kafka KRaft 单机 | 9092 |
 
 ### 注册配置中心
 
-| 模块 | 能力 | 入口 | 文档 |
-|------|------|------|------|
-| [nacos](nacos/) | Nacos 单机 Derby（`v3.2.3`，控制台 nacos / nacos） | `docker-compose.yml` | [模块说明](nacos/README.md) · [文档](docs/nacos/README.md) |
-| [consul](consul/) | Consul 单节点 server（`1.21.3`，UI `8500`） | `docker-compose.yml` | [模块说明](consul/README.md) · [文档](docs/consul/README.md) |
+| 模块 | 说明 | 端口 |
+|------|------|------|
+| [nacos](modules/discovery/nacos/) | Nacos 单机 | 8080/8848 |
+| [consul](modules/discovery/consul/) | Consul 单节点 | 8500 |
+
+### 网关
+
+| 模块 | 说明 | 端口 |
+|------|------|------|
+| [nginx](modules/gateway/nginx/) | Nginx | 8088 |
+
+### Git / GUI / Mail
+
+| 模块 | 说明 | 端口 |
+|------|------|------|
+| [gitlab](modules/git/gitlab/) | GitLab CE | 见模块 README |
+| [adminer](modules/gui/adminer/) | Adminer | 8081 |
+| [mailpit](modules/mail/mailpit/) | Mailpit | 1025/8025 |
 
 ### 可观测性
 
-| 模块 | 能力 | 入口 | 文档 |
-|------|------|------|------|
-| [elk](elk/) | ELK 8.17.10（官方 Compose 单节点裁剪；elastic / 123456） | `docker-compose.yml` · `.env` | [模块说明](elk/README.md) · [文档](docs/elk/README.md) |
-| [grafana](grafana/) | Grafana 11.5.2（admin / 123456，端口 3001） | `docker-compose.yml` | [模块说明](grafana/README.md) · [文档](docs/grafana/README.md) |
+| 模块 | 说明 | 端口 |
+|------|------|------|
+| [elk](modules/monitoring/elk/) | ELK 8.17 | 9200/5601 |
+| [grafana](modules/monitoring/grafana/) | Grafana | 3001 |
+| [prometheus](modules/monitoring/prometheus/) | Prometheus | 9090 |
 
-### 应用 / 平台
+### AI
 
-| 模块 | 能力 | 入口 | 文档 |
-|------|------|------|------|
-| [openwebui](openwebui/) | Open WebUI（端口 3000，API URL/Key 按需填写） | `docker-compose.yml` | [模块说明](openwebui/README.md) |
-| [gitlab](gitlab/) | GitLab CE 单机 Compose + 运维命令 | `docker-compose.yml` · `./main.sh` | [模块说明](gitlab/README.md) · [踩坑详解](docs/gitlab/pitfalls.md) |
-
-### 快速一览
-
-```bash
-# 1) 安装 Docker（强烈推荐，后续组件均按 Compose 部署）
-cd docker && ./install.sh          # Linux 便捷脚本
-# Windows / macOS 见 docs/docker/install.md（Docker Desktop）
-
-# 2) （可选）开发机运行时
-cd bun && ./install.sh
-cd nodejs && ./install.sh
-
-# 3) 数据存储
-cd mysql && docker compose up -d
-cd redis && docker compose up -d
-cd pgsql && docker compose up -d
-cd minio && docker compose up -d
-
-# 4) 注册配置中心
-cd nacos && docker compose up -d
-cd consul && docker compose up -d
-
-# 5) 可观测性 / 应用
-cd elk && docker compose up -d
-cd grafana && docker compose up -d
-cd openwebui && docker compose up -d
-
-# GitLab CE（先改 YOUR_IP_ADDRESS）
-cd gitlab && ./main.sh help
-```
+| 模块 | 说明 | 端口 |
+|------|------|------|
+| [openwebui](modules/ai/openwebui/) | Open WebUI | 3000 |
+| [ollama](modules/ai/ollama/) | Ollama | 11434 |
 
 ---
 
-## 典型链路
+## 设计原则
 
-```text
-docker/ 安装引擎（推荐） → Compose 部署 mysql/redis/pgsql/minio/nacos/consul/...
-         ↑
-    bun/ · nodejs/（可选，开发机运行时）
-```
+1. 版本钉死，禁止生产模板 `:latest`  
+2. Compose **最小可跑**；可配置项以注释给出建议值与配置方式（见 conventions §5.1）  
+3. 对照官方文档；开源标注上游仓库  
+4. 长文只放 `docs/`  
+
+---
+
+## Roadmap（阶段二）
+
+gitea · caddy · phpmyadmin · pgadmin · redisinsight · hoppscotch · filebrowser · harbor · registry · jenkins · sonarqube · frp · cloudflared · wireguard · tailscale · qdrant · searxng · flowise · anythingllm · 独立 elasticsearch 等。
 
 ---
 
 ## 新增模块
 
 ```bash
-cp -r templates/module <新模块名>
-# 编辑 README 与入口；长文放 docs/<新模块名>/；更新本页对应分类表
+cp -r templates/module modules/<category>/<name>
+# 编辑 compose / README；登记 catalog.yml；更新本页表格
 ```
-
-规范见 [ADS](docs/conventions.md)。
-
----
-
-## 治理
-
-- **规范唯一权威**：`docs/conventions.md`  
-- **长文归属**：仅 `docs/`  
-- **提交说明**：中文（在明确要求提交时）  
-- **Serena**：`.serena/`（本地配置已忽略）  
 
 ---
 
@@ -155,8 +129,4 @@ cp -r templates/module <新模块名>
 
 [MIT](LICENSE) © omount
 
-复制到目标主机前请：
-
-1. 核对系统与权限是否匹配模块前置条件  
-2. 替换全部占位符与演示口令，勿把文档示例直接用于生产  
-3. 生产变更前阅读对应 `docs/<module>/` 说明（如有）  
+复制到目标主机前请替换演示口令与占位符，勿直接用于生产。

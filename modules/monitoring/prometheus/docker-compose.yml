@@ -1,0 +1,29 @@
+# 官方出处（验收依据）:
+#   安装: https://prometheus.io/docs/prometheus/latest/installation/
+#   镜像: https://hub.docker.com/r/prom/prometheus
+#   上游: https://github.com/prometheus/prometheus
+#   配置: https://prometheus.io/docs/prometheus/latest/configuration/configuration/
+#   本仓库: docs/prometheus/README.md
+# 最小可跑: 自监控 scrape；UI 9090
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    container_name: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      # [挂载 conf] 必须: prometheus.yml
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./data:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      # [command] 建议值: 15d — 本地保留时间
+      # - --storage.tsdb.retention.time=15d
+      # [command] 建议: 启用生命周期 API（慎用）
+      # - --web.enable-lifecycle
+      # [command] 外网访问 UI 时注意安全
+      # - --web.listen-address=0.0.0.0:9090
+    # [environment] 官方主要用 command flags / yml，少用 env

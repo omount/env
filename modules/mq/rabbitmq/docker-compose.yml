@@ -1,0 +1,31 @@
+# 官方出处（验收依据）:
+#   Docker Hub: https://hub.docker.com/_/rabbitmq
+#   上游仓库: https://github.com/rabbitmq/rabbitmq-server
+#   管理插件镜像 tag: *-management
+#   本仓库: docs/rabbitmq/README.md
+# 最小可跑: 用户 guest 仅限本地；演示用 RABBITMQ_DEFAULT_USER=admin / 123456
+# 端口: 5672 AMQP, 15672 管理台
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.13.7-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      # [environment] 建议值: admin — 默认用户（勿在生产用 guest）
+      RABBITMQ_DEFAULT_USER: admin
+      # [environment] 建议值: 123456 — 演示口令
+      RABBITMQ_DEFAULT_PASS: "123456"
+      # [environment] 建议值: / — 默认 vhost
+      RABBITMQ_DEFAULT_VHOST: /
+      # [environment] Erlang cookie（集群用）；单机可省略
+      # RABBITMQ_ERLANG_COOKIE: "change-me-cookie"
+    volumes:
+      - ./data:/var/lib/rabbitmq
+      # [挂载 conf] 建议: 高级参数用 rabbitmq.conf
+      # - ./conf/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+    # [environment] 内存高水位等见官方 Configuring RabbitMQ；优先挂载 conf
+    # hostname: rabbitmq

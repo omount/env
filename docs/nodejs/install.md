@@ -1,6 +1,6 @@
-# Node.js 安装说明（对照官方）
+﻿# Node.js 安装说明（对照官方）
 
-模块目录：[`nodejs/`](../../nodejs/)
+模块目录：[`nodejs/`](../../modules/runtime/nodejs/)
 
 ## 验收依据（官方）
 

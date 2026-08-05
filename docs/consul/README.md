@@ -1,6 +1,6 @@
-# Consul 部署说明（对照官方）
+﻿# Consul 部署说明（对照官方）
 
-对应模块：[`consul/`](../../consul/)
+对应模块：[`consul/`](../../modules/discovery/consul/)
 
 ## 验收依据（官方）
 

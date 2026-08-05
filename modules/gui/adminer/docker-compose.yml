@@ -1,0 +1,24 @@
+# 官方出处（验收依据）:
+#   Docker Hub: https://hub.docker.com/_/adminer
+#   上游: https://github.com/vrana/adminer
+#   本仓库: docs/adminer/README.md
+# 最小可跑: Web UI 8081->8080；连接本机其他库用 host.docker.internal
+
+services:
+  adminer:
+    image: adminer:4.8.1
+    container_name: adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    environment:
+      # [environment] 建议值: AdminerStyle — 或留空默认
+      # ADMINER_DESIGN: pepa-linha
+      # [environment] 默认系统（服务器类型）
+      ADMINER_DEFAULT_SERVER: host.docker.internal
+      # [environment] 插件等见 Hub 说明
+      # ADMINER_PLUGINS: ""
+    # [extra_hosts] Linux 访问宿主机上的 mysql/pgsql 时可能需要
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+    # 无数据卷（无状态 GUI）

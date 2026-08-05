@@ -1,0 +1,31 @@
+# 官方出处（验收依据）:
+#   Docker: https://github.com/ollama/ollama/blob/main/docs/docker.md
+#   上游: https://github.com/ollama/ollama
+#   本仓库: docs/ollama/README.md
+# 最小可跑: CPU 亦可；GPU 需按官方取消注释 devices
+# 端口: 11434
+
+services:
+  ollama:
+    image: ollama/ollama:0.6.5
+    container_name: ollama
+    restart: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./data:/root/.ollama
+    # [environment] 建议: 模型存储已由卷覆盖；以下为常用可选项
+    # environment:
+    #   OLLAMA_HOST: 0.0.0.0:11434
+    #   OLLAMA_KEEP_ALIVE: 5m
+    #   OLLAMA_NUM_PARALLEL: "1"
+    #   OLLAMA_MAX_LOADED_MODELS: "1"
+    # [GPU - NVIDIA] 官方 docker.md：加 deploy.resources 或 --gpus
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    # Windows / 无 GPU: 保持默认 CPU；拉模型: docker exec -it ollama ollama pull <name>

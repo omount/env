@@ -1,6 +1,6 @@
-# MinIO 部署说明
+﻿# MinIO 部署说明
 
-对应模块：[`minio/`](../../minio/)
+对应模块：[`minio/`](../../modules/storage/minio/)
 
 ## 为何钉死老版本
 
@@ -20,7 +20,7 @@
 | 官方文档 | https://min.io/docs/minio/linux/index.html |
 | 上游仓库 | https://github.com/minio/minio |
 | MinIO + Nginx 反代 | https://min.io/docs/minio/linux/integrations/setup-nginx-proxy-with-minio.html |
-| 本模块 Nginx 片段 | [`minio/nginx/minio.conf`](../../minio/nginx/minio.conf) |
+| 本模块 Nginx 片段 | [`minio/nginx/minio.conf`](../../modules/storage/minio/nginx/minio.conf) |
 | 浏览器直传 | [direct-upload.md](direct-upload.md) |
 | 公开读 / 签名读 | [access.md](access.md) |
 

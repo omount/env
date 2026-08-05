@@ -1,6 +1,6 @@
-# Nacos 部署说明（对照官方）
+﻿# Nacos 部署说明（对照官方）
 
-对应模块：[`nacos/`](../../nacos/)
+对应模块：[`nacos/`](../../modules/discovery/nacos/)
 
 ## 验收依据（官方）
 
