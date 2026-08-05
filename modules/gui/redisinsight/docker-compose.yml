@@ -1,0 +1,20 @@
+# 官方出处:
+#   Hub: https://hub.docker.com/r/redis/redisinsight （tag 3.8.0）
+#   文档: https://redis.io/docs/latest/operate/redisinsight/install/install-on-docker/
+# 本仓库: docs/redisinsight/README.md
+# 最小可跑: 端口 5540（官方默认）；连本仓 redis 在 UI 添加
+# 账号: 本地默认无登录墙（见官方说明）
+
+services:
+  redisinsight:
+    image: redis/redisinsight:3.8.0
+    container_name: redisinsight
+    restart: always
+    ports:
+      - "5540:5540"
+    volumes:
+      # [挂载] 持久化（官方文档推荐）
+      - ./data:/data
+    # [environment] RIPORT: "5540"；监听端口，一般默认即可；如需启用请新增 environment 块
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
