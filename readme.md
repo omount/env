@@ -6,9 +6,22 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Compose](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
-[![Modules](https://img.shields.io/badge/modules-21+-green.svg)](catalog.yml)
+[![Modules](https://img.shields.io/badge/modules-31+-green.svg)](catalog.yml)
 
 权威规范：[docs/conventions.md](docs/conventions.md) · 模块清单：[catalog.yml](catalog.yml)
+
+---
+
+## 欢迎提 Issue
+
+缺环境、想要的环境、文档对不上、端口冲突、compose 起不来——**请直接开 Issue**，例如：
+
+- 仓库里还没有的中间件 / 运行时 / GUI
+- 已有模块缺连接信息、演示账号、验收命令
+- 官方升级后钉死版本需要跟进
+- 本机冒烟失败（附 OS、Docker 版本、报错）
+
+Issue 标题建议：`[模块请求] xxx` / `[缺陷] <id> …` / `[文档] …`。你提得越具体，归档越快补齐。
 
 ---
 
@@ -29,15 +42,15 @@
 docker compose up -d
 ```
 
-**不必**先 `git clone` 整个 EasyEnv；整仓克隆只在你需要 `./EasyEnv.sh` 批量管理、或本地改很多模块时更方便。
+**不必**先 `git clone` 整个 EasyEnv；整仓克隆只在你需要 `./easyenv.sh` 批量管理、或本地改很多模块时更方便。
 
 | 方式 | 适合 |
 |------|------|
 | 打开单个 `modules/...` 目录即用 | 只要一个服务、快速验收 |
-| `git clone` + `./EasyEnv.sh` | 多模块、统一 list/up/down |
+| `git clone` + `./easyenv.sh` | 多模块、统一 list/up/down |
 | 长文说明 | 仍看仓库 [`docs/<模块>/`](docs/)，网页点开即可读，无需克隆 |
 
-说明：个别模块同目录还有附属文件（如 nginx 的 `html/`、prometheus 的 `prometheus.yml`、elk 的 `.env`），请整夹带走，不要只拷一个 yml 漏文件。
+说明：个别模块同目录还有附属文件（如 nginx 的 `html/`、prometheus 的 `prometheus.yml`、elk / hoppscotch 的 `.env`），请整夹带走，不要只拷一个 yml 漏文件。
 
 ---
 
@@ -48,17 +61,17 @@ git clone <本仓库 URL>
 cd <仓库目录>
 
 # 列表
-./EasyEnv.sh list
+./easyenv.sh list
 
 # 拉起（需已安装 Docker）
-./EasyEnv.sh up mysql
-./EasyEnv.sh up redis
+./easyenv.sh up mysql
+./easyenv.sh up redis
 
 # 停止
-./EasyEnv.sh down mysql
+./easyenv.sh down mysql
 ```
 
-Windows 请用 **Git Bash** 或 WSL 执行 `EasyEnv.sh`。亦可进入单模块目录：
+Windows 请用 **Git Bash** 或 WSL 执行 `easyenv.sh`。亦可进入单模块目录：
 
 ```bash
 cd modules/database/mysql && docker compose up -d
@@ -107,14 +120,21 @@ cd modules/database/mysql && docker compose up -d
 | 模块 | 说明 | 端口 |
 |------|------|------|
 | [nginx](modules/gateway/nginx/) | Nginx | 8088 |
+| [caddy](modules/gateway/caddy/) | Caddy | 8089 |
 
-### Git / GUI / Mail
+### Git / GUI / Mail / Files / Debug
 
 | 模块 | 说明 | 端口 |
 |------|------|------|
 | [gitlab](modules/git/gitlab/) | GitLab CE | 见模块 README |
+| [gitea](modules/git/gitea/) | Gitea（SQLite） | 3002 / 2222 |
 | [adminer](modules/gui/adminer/) | Adminer | 8081 |
+| [phpmyadmin](modules/gui/phpmyadmin/) | phpMyAdmin | 8082 |
+| [pgadmin](modules/gui/pgadmin/) | pgAdmin 4 | 8083 |
+| [redisinsight](modules/gui/redisinsight/) | Redis Insight | 5540 |
 | [mailpit](modules/mail/mailpit/) | Mailpit | 1025/8025 |
+| [filebrowser](modules/files/filebrowser/) | File Browser | 8084 |
+| [hoppscotch](modules/debug/hoppscotch/) | Hoppscotch CE AIO | 3300/3310/3170 |
 
 ### 可观测性
 
@@ -130,6 +150,14 @@ cd modules/database/mysql && docker compose up -d
 |------|------|------|
 | [openwebui](modules/ai/openwebui/) | Open WebUI | 3000 |
 | [ollama](modules/ai/ollama/) | Ollama | 11434 |
+| [qdrant](modules/ai/qdrant/) | Qdrant 向量库 | 6333/6334 |
+
+### CI/CD · Registry
+
+| 模块 | 说明 | 端口 |
+|------|------|------|
+| [jenkins](modules/cicd/jenkins/) | Jenkins LTS | 8085 / 50000 |
+| [registry](modules/registry/registry/) | Docker Registry v2 | 5000 |
 
 ---
 
@@ -138,14 +166,28 @@ cd modules/database/mysql && docker compose up -d
 1. 版本钉死，禁止生产模板 `:latest`  
 2. Compose **最小可跑**；可配置项以注释给出建议值与配置方式（见 conventions §5.1）  
 3. **单模块自包含**：优先做到「打开 `modules/...` 目录即可用」，不强求先克隆整仓  
-4. 对照官方文档；开源标注上游仓库  
+4. 对照官方文档；开源标注上游仓库；本地 `docker compose config` / 冒烟验收  
 5. 长文只放 `docs/`（网页可读；与 compose 目录分离但不挡即开即用）  
 
 ---
 
-## Roadmap（阶段二）
+## Roadmap
 
-gitea · caddy · phpmyadmin · pgadmin · redisinsight · hoppscotch · filebrowser · harbor · registry · jenkins · sonarqube · frp · cloudflared · wireguard · tailscale · qdrant · searxng · flowise · anythingllm · 独立 elasticsearch 等。
+### 第二阶段（已落地）
+
+gitea · caddy · phpmyadmin · pgadmin · redisinsight · hoppscotch · filebrowser · registry · jenkins · qdrant
+
+### 第三阶段（规划）
+
+| 方向 | 候选（对照官方后再钉死） |
+|------|--------------------------|
+| 制品 / 质量 | Harbor · SonarQube |
+| 内网穿透 / VPN | frp · cloudflared · WireGuard · Tailscale |
+| 检索 / LLM 编排 | SearXNG · Flowise · AnythingLLM |
+| 可观测拆分 | 独立 Elasticsearch（与 ELK 套件解耦） |
+| 工程化 | 可选 docs 站点 · CI 对 `catalog.yml` 做 compose config 冒烟 |
+
+缺什么直接 [开 Issue](#欢迎提-issue)。
 
 ---
 

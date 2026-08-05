@@ -29,8 +29,8 @@
 EasyEnv/
 ├── README.md                 # 总索引
 ├── LICENSE                   # MIT © omount
-├── catalog.yml               # 模块清单（EasyEnv.sh 解析）
-├── EasyEnv.sh                # 统一入口：list / up / down / path
+├── catalog.yml               # 模块清单（easyenv.sh 解析）
+├── easyenv.sh                # 统一入口：list / up / down / path
 ├── docs/
 │   ├── conventions.md        # 本规范（唯一权威）
 │   └── <module>/             # 模块长文（扁平，不强制按 category）
@@ -66,7 +66,7 @@ EasyEnv/
 |----|------|
 | 用途 | 一句话 |
 | 前置条件 | Docker、端口等 |
-| 一键运行 | `cd modules/...` 与可选 `./EasyEnv.sh up <id>` |
+| 一键运行 | `cd modules/...` 与可选 `./easyenv.sh up <id>` |
 | **连接信息表** | 镜像、主机、端口、**用户/密码或「无认证」**、数据卷、管理台 URL（如有） |
 | **客户端示例** | 至少一条可复制命令或连接串（含账号用法） |
 | 验收 | 可判定成功的命令 |
@@ -102,6 +102,7 @@ Compose 模块须同时满足：
 3. **每条注释含**：配置项名、**建议值**、**配置方式**（`environment` | `command` | 挂载 conf 路径）、一句用途  
 4. 文件头含：官方文档 URL、上游仓库、镜像页、本仓库 `docs/<module>/` 路径  
 5. 项过多时：compose 注释核心项 + `docs/<module>/parameters.md` 全量表，且 compose 头指向该文档  
+6. YAML 键必须有真实键值：`environment:`、`ports:`、`volumes:`、`command:`、`networks:` 等块若只有注释、没有实际条目，则不要写该键；可配置项注释写在同级上方或其它已有块旁，标注 `[environment]` / `[ports]` / `[挂载]` 并说明应新增的配置方式
 
 仅 `install.sh` 的 runtime 模块（bun / nodejs / docker）不强制本条。  
 
@@ -130,7 +131,7 @@ cp -r templates/module modules/<category>/<name>
 # 1. 编辑 README 与 docker-compose.yml / install.sh（Compose 遵守第 5.1 节）
 # 2. 需要长文时创建 docs/<name>/
 # 3. 在 catalog.yml 追加一条；更新根 README 对应分类表
-# 4. 可用 ./EasyEnv.sh path <id> 校验路径
+# 4. 可用 ./easyenv.sh path <id> 校验路径
 ```
 
 ---

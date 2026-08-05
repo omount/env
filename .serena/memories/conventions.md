@@ -21,6 +21,8 @@ Password try in order: `123456` → `12345678` → `12345678910` → longer by a
 
 Shebang + `set -euo pipefail`; no emoji in scripts; no Compose `version` key.
 
+Compose comments may document common env/command/ports/mount config, but YAML keys must have real values. Do not leave `environment:`, `ports:`, `volumes:`, `command:`, `networks:` or similar keys present with only comments below them. If a block has no actual entries, omit the key and put `[environment]` / `[ports]` / `[挂载]` guidance as same-level comments near an existing block, explicitly saying to add the relevant block when enabling it.
+
 ## Bun / Docker install (required pattern)
 
 If upstream has one-liner: cite official URLs, wrap in `install.sh`, provide `build-from-source.sh` + `docs/<module>/install.md`.

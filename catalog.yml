@@ -1,4 +1,4 @@
-# EasyEnv module catalog（易解析扁平块；EasyEnv.sh 依赖此格式）
+# EasyEnv module catalog（易解析扁平块；easyenv.sh 依赖此格式）
 # 字段: id / category / path / summary / official_docs / upstream / ports / status
 
 - id: bun
@@ -188,4 +188,94 @@
   official_docs: https://github.com/ollama/ollama/blob/main/docs/docker.md
   upstream: https://github.com/ollama/ollama
   ports: "11434"
+  status: stable
+
+- id: gitea
+  category: git
+  path: modules/git/gitea
+  summary: Gitea 轻量 Git（SQLite）
+  official_docs: https://docs.gitea.com/installation/install-with-docker
+  upstream: https://github.com/go-gitea/gitea
+  ports: "3002,2222"
+  status: stable
+
+- id: caddy
+  category: gateway
+  path: modules/gateway/caddy
+  summary: Caddy 反向代理 / 静态站
+  official_docs: https://caddyserver.com/docs/install#docker
+  upstream: https://github.com/caddyserver/caddy
+  ports: "8089"
+  status: stable
+
+- id: phpmyadmin
+  category: gui
+  path: modules/gui/phpmyadmin
+  summary: phpMyAdmin（连 MySQL）
+  official_docs: https://docs.phpmyadmin.net/en/latest/setup.html#docker
+  upstream: https://github.com/phpmyadmin/phpmyadmin
+  ports: "8082"
+  status: stable
+
+- id: pgadmin
+  category: gui
+  path: modules/gui/pgadmin
+  summary: pgAdmin 4（连 PostgreSQL）
+  official_docs: https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
+  upstream: https://github.com/pgadmin-org/pgadmin4
+  ports: "8083"
+  status: stable
+
+- id: redisinsight
+  category: gui
+  path: modules/gui/redisinsight
+  summary: Redis Insight
+  official_docs: https://redis.io/docs/latest/operate/redisinsight/install/install-on-docker/
+  upstream: https://github.com/RedisInsight/RedisInsight
+  ports: "5540"
+  status: stable
+
+- id: hoppscotch
+  category: debug
+  path: modules/debug/hoppscotch
+  summary: Hoppscotch CE AIO（需首次 migrate）
+  official_docs: https://docs.hoppscotch.io/documentation/self-host/community-edition/install-and-build
+  upstream: https://github.com/hoppscotch/hoppscotch
+  ports: "3300,3310,3170"
+  status: stable
+
+- id: filebrowser
+  category: files
+  path: modules/files/filebrowser
+  summary: File Browser（上游已归档）
+  official_docs: https://github.com/filebrowser/filebrowser/blob/master/www/docs/installation.md
+  upstream: https://github.com/filebrowser/filebrowser
+  ports: "8084"
+  status: stable
+
+- id: registry
+  category: registry
+  path: modules/registry/registry
+  summary: Docker Registry v2（本地无鉴权）
+  official_docs: https://hub.docker.com/_/registry
+  upstream: https://github.com/distribution/distribution
+  ports: "5000"
+  status: stable
+
+- id: jenkins
+  category: cicd
+  path: modules/cicd/jenkins
+  summary: Jenkins LTS JDK17
+  official_docs: https://www.jenkins.io/doc/book/installing/docker/
+  upstream: https://github.com/jenkinsci/jenkins
+  ports: "8085,50000"
+  status: stable
+
+- id: qdrant
+  category: ai
+  path: modules/ai/qdrant
+  summary: Qdrant 向量库
+  official_docs: https://qdrant.tech/documentation/guides/installation/
+  upstream: https://github.com/qdrant/qdrant
+  ports: "6333,6334"
   status: stable
