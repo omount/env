@@ -1,0 +1,24 @@
+# 官方出处:
+#   https://www.jenkins.io/doc/book/installing/docker/
+#   Hub: https://hub.docker.com/r/jenkins/jenkins （tag 2.504.2-lts-jdk17）
+# 本仓库: docs/jenkins/README.md
+# 最小可跑: LTS JDK17；Web 8085→8080；agent 50000
+# 账号: 首次安装向导；初始管理员密码见容器内 secrets/initialAdminPassword
+
+services:
+  jenkins:
+    image: jenkins/jenkins:2.504.2-lts-jdk17
+    container_name: jenkins
+    restart: always
+    user: root
+    # 官方示例常用 jenkins 用户；Windows 绑定卷权限问题可用 root（仅本地演示）
+    # user: "1000:1000"
+    # [environment] JAVA_OPTS: "-Dhudson.footerURL=https://example.com"；Java 选项，可选；如需启用请新增 environment 块
+    # [environment] JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"；跳过安装向导，一般不要开；如需启用请新增 environment 块
+    ports:
+      - "8085:8080"
+      - "50000:50000"
+    volumes:
+      - ./data:/var/jenkins_home
+      # [挂载] Docker-out-of-Docker / socket（可选，有安全风险）
+      # - /var/run/docker.sock:/var/run/docker.sock
