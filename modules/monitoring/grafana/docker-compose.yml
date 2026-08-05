@@ -5,7 +5,7 @@
 #   上游仓库: https://github.com/grafana/grafana
 # 环境变量使用官方 GF_ 前缀覆盖 grafana.ini
 # 宿主机端口 3001→3000：避开本仓库 openwebui(3000)；官方示例多为 3000:3000
-# 演示账号: admin / 123456（EsayEnv 密码递进）
+# 演示账号: admin / 123456（EasyEnv 密码递进）
 
 services:
   grafana:

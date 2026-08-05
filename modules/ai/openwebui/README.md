@@ -1,4 +1,4 @@
-﻿# Open WebUI
+# Open WebUI
 
 官方镜像单机部署。Web 端口 `3000`，数据目录映射到 `./data`。  
 OpenAI 兼容接口的 Base URL / API Key 默认注释，按需要填写后启用。
@@ -22,7 +22,7 @@ OpenAI 兼容接口的 Base URL / API Key 默认注释，按需要填写后启�
 ```bash
 cd modules/ai/openwebui
 docker compose up -d
-# 或: ./esayenv.sh up openwebui
+# 或: ./EasyEnv.sh up openwebui
 ```
 
 ```bash

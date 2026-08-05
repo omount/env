@@ -1,8 +1,8 @@
-﻿# Docker 安装与部署指引
+# Docker 安装与部署指引
 
 模块目录：[`docker/`](../../modules/runtime/docker/)
 
-## EsayEnv 推荐
+## EasyEnv 推荐
 
 **优先使用 Docker（及 Compose）部署本仓库中的 mysql / redis / pgsql / minio / openwebui / gitlab 等组件。**  
 装好 Docker 后，进入对应模块执行 `docker compose up -d` 即可，避免在宿主机直接编译安装各中间件。
@@ -137,7 +137,7 @@ cd docker
 
 ---
 
-## 用 Docker 部署 EsayEnv 组件（推荐路径）
+## 用 Docker 部署 EasyEnv 组件（推荐路径）
 
 ```bash
 # 确认 Docker 可用

@@ -12,7 +12,7 @@
 ```bash
 cd modules/mq/kafka
 docker compose up -d
-# 或: ./esayenv.sh up kafka
+# 或: ./EasyEnv.sh up kafka
 ```
 
 ## 连接信息

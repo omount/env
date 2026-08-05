@@ -1,4 +1,4 @@
-﻿# Grafana
+# Grafana
 
 对照官方 Docker 配置文档的 Compose 模板。
 
@@ -20,7 +20,7 @@
 | 镜像 | `grafana/grafana:11.5.2` |
 | Web | http://127.0.0.1:3001 |
 | 用户 | `admin`（`GF_SECURITY_ADMIN_USER`） |
-| 密码 | `123456`（`GF_SECURITY_ADMIN_PASSWORD`，EsayEnv 演示递进） |
+| 密码 | `123456`（`GF_SECURITY_ADMIN_PASSWORD`，EasyEnv 演示递进） |
 | 数据 | `./data` → `/var/lib/grafana`（官方默认路径） |
 
 ## 一键运行
@@ -28,7 +28,7 @@
 ```bash
 cd modules/monitoring/grafana
 docker compose up -d
-# 或: ./esayenv.sh up grafana
+# 或: ./EasyEnv.sh up grafana
 ```
 
 浏览器打开 http://127.0.0.1:3001 ，用户 `admin`，密码 `123456` 登录。

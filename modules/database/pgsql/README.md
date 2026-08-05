@@ -1,4 +1,4 @@
-﻿# PostgreSQL 16
+# PostgreSQL 16
 
 官方镜像单机部署。用户 `root` / 密码 `123456`，默认库 `root`，数据目录映射到 `./data`。
 
@@ -14,7 +14,7 @@
 ```bash
 cd modules/database/pgsql
 docker compose up -d
-# 或: ./esayenv.sh up pgsql
+# 或: ./EasyEnv.sh up pgsql
 ```
 
 ```bash

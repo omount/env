@@ -16,7 +16,7 @@
 ```bash
 cd modules/<category>/<name>
 docker compose up -d
-# 或（整仓）: ./esayenv.sh up <id>
+# 或（整仓）: ./EasyEnv.sh up <id>
 ```
 
 ```bash

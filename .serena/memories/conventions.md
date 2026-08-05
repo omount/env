@@ -1,6 +1,6 @@
 # Conventions (ADS — authoritative in docs/conventions.md)
 
-**EsayEnv** (spelling fixed, not EasyEnv). Slogan: 让天下没有难配置的环境. MIT © omount.
+**EasyEnv** (spelling Easy, not Esay). Slogan: 让天下没有难配置的环境. MIT © omount.
 
 Prefer Docker Compose for middleware.
 

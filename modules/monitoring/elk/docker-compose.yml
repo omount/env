@@ -11,7 +11,7 @@
 #   https://github.com/elastic/logstash
 #   https://github.com/elastic/kibana
 # 版本钉死: 与官方 8.17 文档示例镜像一致 8.17.10
-# 密码: 官方要求至少 6 位字母数字；按 EsayEnv 递进取 123456（见 .env）
+# 密码: 官方要求至少 6 位字母数字；按 EasyEnv 递进取 123456（见 .env）
 
 services:
   setup:

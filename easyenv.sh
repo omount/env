@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# EsayEnv CLI — 从 catalog.yml 解析模块并 docker compose up/down
+# EasyEnv CLI — 从 catalog.yml 解析模块并 docker compose up/down
 # Windows: Git Bash / WSL
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -9,7 +9,7 @@ CATALOG="${ROOT}/catalog.yml"
 
 usage() {
   cat <<'EOF'
-用法: ./esayenv.sh <list|up|down|path> [module_id]
+用法: ./EasyEnv.sh <list|up|down|path> [module_id]
 
   list           列出 catalog.yml 中全部模块
   up <id>        在模块目录执行 docker compose up -d
@@ -17,9 +17,9 @@ usage() {
   path <id>      打印模块相对路径
 
 示例:
-  ./esayenv.sh list
-  ./esayenv.sh up mysql
-  ./esayenv.sh down redis
+  ./EasyEnv.sh list
+  ./EasyEnv.sh up mysql
+  ./EasyEnv.sh down redis
 EOF
 }
 
@@ -63,7 +63,7 @@ require_compose_module() {
   local path
   path="$(module_field "$id" path)"
   if [[ -z "$path" ]]; then
-    echo "未知模块: $id（请先 ./esayenv.sh list）" >&2
+    echo "未知模块: $id（请先 ./EasyEnv.sh list）" >&2
     exit 1
   fi
   local abs="${ROOT}/${path}"

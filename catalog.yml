@@ -1,4 +1,4 @@
-# EsayEnv module catalog（易解析扁平块；esayenv.sh 依赖此格式）
+# EasyEnv module catalog（易解析扁平块；EasyEnv.sh 依赖此格式）
 # 字段: id / category / path / summary / official_docs / upstream / ports / status
 
 - id: bun

@@ -1,6 +1,6 @@
 # ADS 仓库规范（Archive Deploy Standard）
 
-项目名：**EsayEnv**（固定拼写，非 EasyEnv）  
+项目名：**EasyEnv**（拼写 Easy，非 Esay）  
 口号：**让天下没有难配置的环境**
 
 本文件为本仓库唯一权威规范。根 `README.md` 仅作索引；模块细节见各模块 `README.md` 与 `docs/<module>/`。
@@ -26,11 +26,11 @@
 ## 2. 目录结构
 
 ```text
-EsayEnv/
+EasyEnv/
 ├── README.md                 # 总索引
 ├── LICENSE                   # MIT © omount
-├── catalog.yml               # 模块清单（esayenv.sh 解析）
-├── esayenv.sh                # 统一入口：list / up / down / path
+├── catalog.yml               # 模块清单（EasyEnv.sh 解析）
+├── EasyEnv.sh                # 统一入口：list / up / down / path
 ├── docs/
 │   ├── conventions.md        # 本规范（唯一权威）
 │   └── <module>/             # 模块长文（扁平，不强制按 category）
@@ -66,7 +66,7 @@ EsayEnv/
 |----|------|
 | 用途 | 一句话 |
 | 前置条件 | Docker、端口等 |
-| 一键运行 | `cd modules/...` 与可选 `./esayenv.sh up <id>` |
+| 一键运行 | `cd modules/...` 与可选 `./EasyEnv.sh up <id>` |
 | **连接信息表** | 镜像、主机、端口、**用户/密码或「无认证」**、数据卷、管理台 URL（如有） |
 | **客户端示例** | 至少一条可复制命令或连接串（含账号用法） |
 | 验收 | 可判定成功的命令 |
@@ -130,7 +130,7 @@ cp -r templates/module modules/<category>/<name>
 # 1. 编辑 README 与 docker-compose.yml / install.sh（Compose 遵守第 5.1 节）
 # 2. 需要长文时创建 docs/<name>/
 # 3. 在 catalog.yml 追加一条；更新根 README 对应分类表
-# 4. 可用 ./esayenv.sh path <id> 校验路径
+# 4. 可用 ./EasyEnv.sh path <id> 校验路径
 ```
 
 ---

@@ -1,4 +1,4 @@
-# EsayEnv
+# EasyEnv
 
 **让天下没有难配置的环境**
 
@@ -29,12 +29,12 @@
 docker compose up -d
 ```
 
-**不必**先 `git clone` 整个 EsayEnv；整仓克隆只在你需要 `./esayenv.sh` 批量管理、或本地改很多模块时更方便。
+**不必**先 `git clone` 整个 EasyEnv；整仓克隆只在你需要 `./EasyEnv.sh` 批量管理、或本地改很多模块时更方便。
 
 | 方式 | 适合 |
 |------|------|
 | 打开单个 `modules/...` 目录即用 | 只要一个服务、快速验收 |
-| `git clone` + `./esayenv.sh` | 多模块、统一 list/up/down |
+| `git clone` + `./EasyEnv.sh` | 多模块、统一 list/up/down |
 | 长文说明 | 仍看仓库 [`docs/<模块>/`](docs/)，网页点开即可读，无需克隆 |
 
 说明：个别模块同目录还有附属文件（如 nginx 的 `html/`、prometheus 的 `prometheus.yml`、elk 的 `.env`），请整夹带走，不要只拷一个 yml 漏文件。
@@ -48,17 +48,17 @@ git clone <本仓库 URL>
 cd <仓库目录>
 
 # 列表
-./esayenv.sh list
+./EasyEnv.sh list
 
 # 拉起（需已安装 Docker）
-./esayenv.sh up mysql
-./esayenv.sh up redis
+./EasyEnv.sh up mysql
+./EasyEnv.sh up redis
 
 # 停止
-./esayenv.sh down mysql
+./EasyEnv.sh down mysql
 ```
 
-Windows 请用 **Git Bash** 或 WSL 执行 `esayenv.sh`。亦可进入单模块目录：
+Windows 请用 **Git Bash** 或 WSL 执行 `EasyEnv.sh`。亦可进入单模块目录：
 
 ```bash
 cd modules/database/mysql && docker compose up -d

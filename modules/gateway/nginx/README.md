@@ -12,7 +12,7 @@
 ```bash
 cd modules/gateway/nginx
 docker compose up -d
-# 或: ./esayenv.sh up nginx
+# 或: ./EasyEnv.sh up nginx
 ```
 
 ## 连接信息

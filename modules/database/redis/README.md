@@ -1,4 +1,4 @@
-﻿# Redis 7.4
+# Redis 7.4
 
 官方镜像单机部署。仅密码认证（无独立用户名），密码 `123456`，数据目录映射到 `./data`。
 
@@ -14,7 +14,7 @@
 ```bash
 cd modules/database/redis
 docker compose up -d
-# 或: ./esayenv.sh up redis
+# 或: ./EasyEnv.sh up redis
 ```
 
 ```bash

@@ -12,7 +12,7 @@
 ```bash
 cd modules/mq/rabbitmq
 docker compose up -d
-# 或: ./esayenv.sh up rabbitmq
+# 或: ./EasyEnv.sh up rabbitmq
 ```
 
 ```bash

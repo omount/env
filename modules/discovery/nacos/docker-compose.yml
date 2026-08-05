@@ -5,7 +5,7 @@
 #   镜像: https://hub.docker.com/r/nacos/nacos-server
 #   上游仓库: https://github.com/alibaba/nacos
 # 单机 Derby；2.2.1+ 必须自备 NACOS_AUTH_TOKEN / IDENTITY（官方 README Note）
-# 控制台默认账号: nacos / nacos（官方默认，非 EsayEnv 递进口令）
+# 控制台默认账号: nacos / nacos（官方默认，非 EasyEnv 递进口令）
 
 services:
   nacos:

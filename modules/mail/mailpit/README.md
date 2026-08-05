@@ -12,7 +12,7 @@
 ```bash
 cd modules/mail/mailpit
 docker compose up -d
-# 或: ./esayenv.sh up mailpit
+# 或: ./EasyEnv.sh up mailpit
 ```
 
 ## 连接信息

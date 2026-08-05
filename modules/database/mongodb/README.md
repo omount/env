@@ -12,7 +12,7 @@
 ```bash
 cd modules/database/mongodb
 docker compose up -d
-# 或: ./esayenv.sh up mongodb
+# 或: ./EasyEnv.sh up mongodb
 ```
 
 ## 连接信息

@@ -1,6 +1,6 @@
-﻿# Docker
+# Docker
 
-安装 Docker Engine / Desktop，并**推荐用 Docker Compose 部署 EsayEnv 各中间件**。
+安装 Docker Engine / Desktop，并**推荐用 Docker Compose 部署 EasyEnv 各中间件**。
 
 ## 官方出处
 

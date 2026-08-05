@@ -13,7 +13,7 @@
 ```bash
 cd modules/gui/adminer
 docker compose up -d
-# 或: ./esayenv.sh up adminer
+# 或: ./EasyEnv.sh up adminer
 ```
 
 ## 连接信息

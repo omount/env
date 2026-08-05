@@ -58,5 +58,5 @@ curl -fsSL "https://${channel_host}" -o "$tmp_script"
 sh "$tmp_script"
 
 echo "安装完成。请执行: docker --version && docker compose version"
-echo "EsayEnv 推荐用 Docker Compose 部署各中间件模块。"
+echo "EasyEnv 推荐用 Docker Compose 部署各中间件模块。"
 echo "详解: docs/docker/install.md"

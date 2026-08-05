@@ -1,6 +1,6 @@
-﻿# Nacos（单机 Derby）
+# Nacos（单机 Derby）
 
-对照官方 Docker 单机示例。控制台默认账号为官方 **`nacos` / `nacos`**（不是 EsayEnv 递进的 123456）。
+对照官方 Docker 单机示例。控制台默认账号为官方 **`nacos` / `nacos`**（不是 EasyEnv 递进的 123456）。
 
 ## 前置条件
 
@@ -12,7 +12,7 @@
 ```bash
 cd modules/discovery/nacos
 docker compose up -d
-# 或: ./esayenv.sh up nacos
+# 或: ./EasyEnv.sh up nacos
 ```
 
 首次启动较慢，等控制台可打开后再登录。

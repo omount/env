@@ -38,4 +38,4 @@ sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 echo "安装完成。可执行: docker --version && docker compose version"
-echo "EsayEnv 推荐用 Docker Compose 部署各中间件模块。"
+echo "EasyEnv 推荐用 Docker Compose 部署各中间件模块。"

@@ -1,4 +1,4 @@
-﻿# GitLab CE（Docker Compose）
+# GitLab CE（Docker Compose）
 
 单机部署 GitLab CE 的 Compose 模板与常用运维命令。
 
@@ -38,7 +38,7 @@ cd modules/git/gitlab
 # 或复制本目录到目标机后改 YOUR_IP_ADDRESS
 mkdir -p config logs data
 docker compose up -d
-# 或: ./esayenv.sh up gitlab
+# 或: ./EasyEnv.sh up gitlab
 docker logs -f gitlab
 ```
 

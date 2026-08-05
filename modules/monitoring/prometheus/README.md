@@ -12,7 +12,7 @@
 ```bash
 cd modules/monitoring/prometheus
 docker compose up -d
-# 或: ./esayenv.sh up prometheus
+# 或: ./EasyEnv.sh up prometheus
 ```
 
 ## 连接信息

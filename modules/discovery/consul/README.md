@@ -1,4 +1,4 @@
-﻿# Consul（单节点 server）
+# Consul（单节点 server）
 
 对照 HashiCorp 官方 Docker 单节点示例。开启 UI；**默认未启用 ACL，无登录用户名密码**。
 
@@ -12,7 +12,7 @@
 ```bash
 cd modules/discovery/consul
 docker compose up -d
-# 或: ./esayenv.sh up consul
+# 或: ./EasyEnv.sh up consul
 ```
 
 ## 连接信息

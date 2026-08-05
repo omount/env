@@ -1,4 +1,4 @@
-﻿# MySQL 8.4
+# MySQL 8.4
 
 官方镜像单机部署。账号 `root` / `123456`，数据目录映射到 `./data`。
 
@@ -14,7 +14,7 @@
 ```bash
 cd modules/database/mysql
 docker compose up -d
-# 或: ./esayenv.sh up mysql
+# 或: ./EasyEnv.sh up mysql
 ```
 
 ```bash

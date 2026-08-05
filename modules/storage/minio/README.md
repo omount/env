@@ -1,4 +1,4 @@
-﻿# MinIO（未阉割老版本）
+# MinIO（未阉割老版本）
 
 钉死镜像：`minio/minio:RELEASE.2025-04-22T22-12-26Z`（**勿用 `latest`**）。
 
@@ -23,7 +23,7 @@
 ```bash
 cd modules/storage/minio
 docker compose up -d
-# 或: ./esayenv.sh up minio
+# 或: ./EasyEnv.sh up minio
 ```
 
 ```bash

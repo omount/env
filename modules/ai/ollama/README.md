@@ -13,7 +13,7 @@
 ```bash
 cd modules/ai/ollama
 docker compose up -d
-# 或: ./esayenv.sh up ollama
+# 或: ./EasyEnv.sh up ollama
 ```
 
 首次拉模型（示例）：

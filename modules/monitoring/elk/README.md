@@ -1,4 +1,4 @@
-﻿# ELK（Elasticsearch + Logstash + Kibana）
+# ELK（Elasticsearch + Logstash + Kibana）
 
 基于 **Elastic 官方 Docker / Compose 文档** 整理的单节点归档模板（非自创安全关闭方案）。
 
@@ -41,7 +41,7 @@
 cd modules/monitoring/elk
 mkdir -p data/elasticsearch data/kibana data/logstash
 docker compose up -d
-# 或: ./esayenv.sh up elk
+# 或: ./EasyEnv.sh up elk
 ```
 
 ## 客户端示例
