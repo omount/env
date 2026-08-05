@@ -1,0 +1,31 @@
+# 官方出处（验收依据）:
+#   https://github.com/nacos-group/nacos-docker
+#   https://github.com/nacos-group/nacos-docker/blob/master/example/standalone-derby.yaml
+#   https://github.com/nacos-group/nacos-docker/blob/master/example/.env （NACOS_VERSION=v3.2.3）
+#   镜像: https://hub.docker.com/r/nacos/nacos-server
+#   上游仓库: https://github.com/alibaba/nacos
+# 单机 Derby；2.2.1+ 必须自备 NACOS_AUTH_TOKEN / IDENTITY（官方 README Note）
+# 控制台默认账号: nacos / nacos（官方默认，非 EsayEnv 递进口令）
+
+services:
+  nacos:
+    image: nacos/nacos-server:v3.2.3
+    container_name: nacos
+    restart: always
+    environment:
+      - MODE=standalone
+      - PREFER_HOST_MODE=hostname
+      # 与官方 example/standalone-derby.yaml 一致
+      - NACOS_AUTH_IDENTITY_KEY=serverIdentity
+      - NACOS_AUTH_IDENTITY_VALUE=security
+      - NACOS_AUTH_TOKEN=VGhpc0lzTXlDdXN0b21TZWNyZXRLZXkwMTIzNDU2Nzg=
+      # 可选：降低演示机内存（官方默认 JVM_XMS/XMX=1g）
+      # - JVM_XMS=512m
+      # - JVM_XMX=512m
+    volumes:
+      - ./data/logs:/home/nacos/logs
+      - ./data/data:/home/nacos/data
+    ports:
+      - "8080:8080"
+      - "8848:8848"
+      - "9848:9848"

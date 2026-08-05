@@ -1,0 +1,29 @@
+# 官方出处（验收依据）:
+#   https://developer.hashicorp.com/consul/docs/deploy/server/docker
+#   单节点命令（官方原文）:
+#     docker run --name=consul-server -d -p 8500:8500 -p 8600:8600/udp hashicorp/consul \
+#       consul agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0 -data-dir=/consul/data
+#   镜像 tag：官方多节点示例钉死 hashicorp/consul:1.21.3，本模板沿用
+#   Docker Hub: https://hub.docker.com/r/hashicorp/consul
+#   上游仓库: https://github.com/hashicorp/consul
+# 单机 server（bootstrap-expect=1）；演示未启 ACL
+
+services:
+  consul:
+    image: hashicorp/consul:1.21.3
+    container_name: consul
+    restart: always
+    ports:
+      - "8500:8500"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
+    volumes:
+      - ./data:/consul/data
+    command:
+      - agent
+      - -server
+      - -ui
+      - -node=server-1
+      - -bootstrap-expect=1
+      - -client=0.0.0.0
+      - -data-dir=/consul/data

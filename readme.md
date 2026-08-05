@@ -36,42 +36,56 @@
 
 ```text
 EsayEnv/
-├── README.md                 # 本页：总览与索引
+├── README.md                 # 本页：总览与分类索引
 ├── LICENSE                   # MIT © omount
-├── docs/
-│   ├── conventions.md        # ADS 官方规范
-│   ├── bun/install.md        # Bun 官方脚本 + 编译安装
-│   ├── docker/install.md     # Docker Win/Linux/macOS + 推荐部署
-│   └── ...
+├── docs/                     # 长文与规范（含 conventions.md）
 ├── templates/module/         # 新模块脚手架
-├── bun/                      # Bun 运行时安装
-├── nodejs/                   # Node.js 安装（nvm / 编译）
-├── docker/                   # Docker Engine / Desktop 安装
-├── mysql/                    # MySQL 8.4
-├── redis/                    # Redis 7.4
-├── pgsql/                    # PostgreSQL 16
-├── minio/                    # MinIO（未阉割老版本）
-├── elk/                      # Elasticsearch + Logstash + Kibana
-├── grafana/                  # Grafana
-├── openwebui/                # Open WebUI
-└── gitlab/                   # GitLab CE Compose + 运维 CLI
+├── bun/ nodejs/ docker/      # 运行时 / 基础
+├── mysql/ redis/ pgsql/ minio/
+├── nacos/ consul/            # 注册配置中心
+├── elk/ grafana/             # 可观测性
+└── openwebui/ gitlab/        # 应用 / 平台
 ```
 
 ---
 
-## 模块目录
+## 模块目录（分类）
+
+### 运行时 / 基础
 
 | 模块 | 能力 | 入口 | 文档 |
 |------|------|------|------|
 | [bun](bun/) | 安装 Bun（官方脚本 / 编译） | `./install.sh` · `./build-from-source.sh` | [模块说明](bun/README.md) · [安装详解](docs/bun/install.md) |
 | [nodejs](nodejs/) | 安装 Node.js（nvm / 编译） | `./install.sh` · `./build-from-source.sh` | [模块说明](nodejs/README.md) · [安装详解](docs/nodejs/install.md) |
 | [docker](docker/) | Windows / Linux / macOS 安装 Docker | `./install.sh` · `./ubuntu-install.sh` · `./build-from-source.sh` | [模块说明](docker/README.md) · [安装详解](docs/docker/install.md) |
+
+### 数据存储
+
+| 模块 | 能力 | 入口 | 文档 |
+|------|------|------|------|
 | [mysql](mysql/) | MySQL 8.4（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](mysql/README.md) · [参数](docs/mysql/parameters.md) |
 | [redis](redis/) | Redis 7.4（仅密码 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](redis/README.md) · [参数](docs/redis/parameters.md) |
 | [pgsql](pgsql/) | PostgreSQL 16（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](pgsql/README.md) · [参数](docs/pgsql/parameters.md) |
 | [minio](minio/) | MinIO 未阉割版（admin / 12345678，默认公开读，AWS S3 直传） | `docker-compose.yml` | [模块说明](minio/README.md) · [访问策略](docs/minio/access.md) |
+
+### 注册配置中心
+
+| 模块 | 能力 | 入口 | 文档 |
+|------|------|------|------|
+| [nacos](nacos/) | Nacos 单机 Derby（`v3.2.3`，控制台 nacos / nacos） | `docker-compose.yml` | [模块说明](nacos/README.md) · [文档](docs/nacos/README.md) |
+| [consul](consul/) | Consul 单节点 server（`1.21.3`，UI `8500`） | `docker-compose.yml` | [模块说明](consul/README.md) · [文档](docs/consul/README.md) |
+
+### 可观测性
+
+| 模块 | 能力 | 入口 | 文档 |
+|------|------|------|------|
 | [elk](elk/) | ELK 8.17.10（官方 Compose 单节点裁剪；elastic / 123456） | `docker-compose.yml` · `.env` | [模块说明](elk/README.md) · [文档](docs/elk/README.md) |
 | [grafana](grafana/) | Grafana 11.5.2（admin / 123456，端口 3001） | `docker-compose.yml` | [模块说明](grafana/README.md) · [文档](docs/grafana/README.md) |
+
+### 应用 / 平台
+
+| 模块 | 能力 | 入口 | 文档 |
+|------|------|------|------|
 | [openwebui](openwebui/) | Open WebUI（端口 3000，API URL/Key 按需填写） | `docker-compose.yml` | [模块说明](openwebui/README.md) |
 | [gitlab](gitlab/) | GitLab CE 单机 Compose + 运维命令 | `docker-compose.yml` · `./main.sh` | [模块说明](gitlab/README.md) · [踩坑详解](docs/gitlab/pitfalls.md) |
 
@@ -86,11 +100,17 @@ cd docker && ./install.sh          # Linux 便捷脚本
 cd bun && ./install.sh
 cd nodejs && ./install.sh
 
-# 3) 用 Docker 拉起中间件
+# 3) 数据存储
 cd mysql && docker compose up -d
 cd redis && docker compose up -d
 cd pgsql && docker compose up -d
 cd minio && docker compose up -d
+
+# 4) 注册配置中心
+cd nacos && docker compose up -d
+cd consul && docker compose up -d
+
+# 5) 可观测性 / 应用
 cd elk && docker compose up -d
 cd grafana && docker compose up -d
 cd openwebui && docker compose up -d
@@ -104,9 +124,9 @@ cd gitlab && ./main.sh help
 ## 典型链路
 
 ```text
-docker/ 安装引擎（推荐） → Compose 部署 mysql/redis/pgsql/minio/... 
+docker/ 安装引擎（推荐） → Compose 部署 mysql/redis/pgsql/minio/nacos/consul/...
          ↑
-    bun/（可选，开发机运行时）
+    bun/ · nodejs/（可选，开发机运行时）
 ```
 
 ---
@@ -115,7 +135,7 @@ docker/ 安装引擎（推荐） → Compose 部署 mysql/redis/pgsql/minio/...
 
 ```bash
 cp -r templates/module <新模块名>
-# 编辑 README 与入口；长文放 docs/<新模块名>/；更新本页模块表
+# 编辑 README 与入口；长文放 docs/<新模块名>/；更新本页对应分类表
 ```
 
 规范见 [ADS](docs/conventions.md)。
