@@ -1,11 +1,36 @@
-# Conventions (ADS — adopted)
+# Conventions (ADS — authoritative in docs/conventions.md)
 
-Authoritative: `docs/conventions.md`. License: MIT © omount.
+**EsayEnv** (spelling fixed, not EasyEnv). Slogan: 让天下没有难配置的环境. MIT © omount.
 
-- One dir per tool/service; long-form in `docs/`; root README index
-- Module: short README + entry (install.sh/compose); optional `docs/<module>/`
-- Scripts: shebang + `set -euo pipefail`; pin image tags; placeholders for secrets
-- Compose: no `version` key
-- `.gitignore` excludes runtime `**/data/**` (keep `data/.gitignore`), node_modules, go.sum in examples, caches
-- MinIO: default bucket `data`, public-read; signed read via `S3_READ_MODE=signed` + drop policy — see `docs/minio/access.md`
-- Chinese commit messages when user requests commit; scope discipline
+Prefer Docker Compose for middleware.
+
+## Structure
+
+One dir/service; root README index; long-form only under `docs/`; scaffold `templates/module/`.
+
+## Module must-haves
+
+README + entry (install.sh/compose); pin tags (no :latest); link docs; demo creds per password ladder.
+
+## Password ladder (demo)
+
+User: `root` or `admin` as appropriate.
+Password try in order: `123456` → `12345678` → `12345678910` → longer by appending digits; document chosen value. MinIO uses admin/12345678 (min 8).
+
+## Scripts / Compose
+
+Shebang + `set -euo pipefail`; no emoji in scripts; no Compose `version` key.
+
+## Bun / Docker install (required pattern)
+
+If upstream has one-liner: cite official URLs, wrap in `install.sh`, provide `build-from-source.sh` + `docs/<module>/install.md`.
+- Bun: bun.sh/install + contributing build
+- Docker: get.docker.com / Desktop Win-Mac / Ubuntu docs + moby source build; recommend Compose deploy
+
+## Git
+
+Chinese commits when requested; gitignore runtime data/node_modules/src build worktrees; no real prod secrets.
+
+## Scope
+
+Only change requested paths; do not swap user’s technical approach.

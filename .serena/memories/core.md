@@ -1,21 +1,17 @@
 # Core
 
-**EsayEnv** — 让天下没有难配置的环境.
-Ops archive (ADS). License: MIT © omount (`LICENSE`).
+**EsayEnv** — 让天下没有难配置的环境. ADS archive. MIT © omount.
+Authoritative norms: `docs/conventions.md` (password ladder; Bun/Docker official+compile install; Docker-first deploy).
 
-Prefer **Docker Compose** for middleware (mysql/redis/pgsql/minio/openwebui/gitlab).
+Prefer Docker Compose for mysql/redis/pgsql/minio/openwebui/gitlab.
 
 ## Layout
 
-- `README.md` — EsayEnv index
-- `docs/conventions.md` `docs/bun/install.md` `docs/docker/install.md` (Win/Linux/macOS + recommend Docker)
-- `bun/install.sh` (official bun.sh script) + `bun/build-from-source.sh` (oven-sh/bun contributing)
-- `docker/install.sh` (get.docker.com) + `ubuntu-install.sh` + `build-from-source.sh` (moby/moby)
-- modules: mysql redis pgsql minio openwebui gitlab templates
+README index; docs/*; bun/ docker/ mysql/ redis/ pgsql/ minio/ openwebui/ gitlab/ templates/
 
-## Pins / demos
+## Demo creds
 
-See prior middleware defaults; MinIO bucket `data` public-read; admin/12345678.
+root or admin; password 123456 → 12345678 → 12345678910 ladder. MinIO: admin/12345678. Bucket `data` public-read.
 
 ## Memory map
 
