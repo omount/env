@@ -1,0 +1,27 @@
+# 官方出处:
+#   Hub: https://hub.docker.com/r/dpage/pgadmin4 （tag 9.6.0）
+#   文档: https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
+# 本仓库: docs/pgadmin/README.md
+# 最小可跑: 内置 Web；连本仓 pgsql 需在 UI 中添加服务器
+# 账号: PGADMIN_DEFAULT_EMAIL / PGADMIN_DEFAULT_PASSWORD（演示）
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4:9.6.0
+    container_name: pgadmin
+    restart: always
+    environment:
+      # [environment] 必填：登录邮箱与密码
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: "123456"
+      # [environment] 监听（容器内）
+      # PGADMIN_LISTEN_PORT: "80"
+      # [environment] 首次后禁止改 master 密码策略等见官方
+      # PGADMIN_CONFIG_SERVER_MODE: "True"
+    ports:
+      - "8083:80"
+    volumes:
+      - ./data:/var/lib/pgadmin
+    # [extra_hosts] 在 UI 里用 host.docker.internal 连宿主机 pgsql:5432
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
