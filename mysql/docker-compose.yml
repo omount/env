@@ -1,15 +1,64 @@
+# 官方镜像文档
+# - Docker Hub: https://hub.docker.com/_/mysql
+# - docker-library 说明: https://github.com/docker-library/docs/blob/master/mysql/README.md
+# - 参数详解（本仓库）: docs/mysql/parameters.md
+# - mysqld 完整选项: docker run -it --rm mysql:8.4 --verbose --help
+# 注意: 下列环境变量仅在数据目录为空（首次初始化）时生效
+
 services:
   mysql:
     image: mysql:8.4
     container_name: mysql
     restart: always
     environment:
+      # root 超级用户密码（官方必填项之一；本模板已启用）
       MYSQL_ROOT_PASSWORD: "123456"
+      # 首次启动时创建的数据库名；若同时设置了 MYSQL_USER，该用户对该库拥有全部权限
+      # MYSQL_DATABASE: "app"
+      # 首次启动时创建的普通用户（需与 MYSQL_PASSWORD 成对出现；不要用来替代 root）
+      # MYSQL_USER: "app"
+      # 与 MYSQL_USER 配套的密码
+      # MYSQL_PASSWORD: "123456"
+      # 允许 root 从哪些主机连接，默认多为 localhost；设为 % 表示任意主机（需自行评估风险）
+      # MYSQL_ROOT_HOST: "%"
+      # 设为非空（如 yes）时允许 root 空密码启动；极不安全，仅本地实验
+      # MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      # 设为非空时随机生成 root 密码并打印到容器日志（GENERATED ROOT PASSWORD）
+      # MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      # 设为非空时初始化后将 root 密码标为过期，首次登录必须改密（MySQL 5.6+）
+      # MYSQL_ONETIME_PASSWORD: "yes"
+      # 设为非空时跳过加载时区表（默认会加载，供 CONVERT_TZ 使用）
+      # MYSQL_INITDB_SKIP_TZINFO: "yes"
+      # Docker Secrets：从文件读入敏感值（路径示例）；支持 MYSQL_ROOT_PASSWORD / MYSQL_ROOT_HOST / MYSQL_DATABASE / MYSQL_USER / MYSQL_PASSWORD
+      # MYSQL_ROOT_PASSWORD_FILE: "/run/secrets/mysql-root"
+      # MYSQL_DATABASE_FILE: "/run/secrets/mysql-database"
+      # MYSQL_USER_FILE: "/run/secrets/mysql-user"
+      # MYSQL_PASSWORD_FILE: "/run/secrets/mysql-password"
+      # MYSQL_ROOT_HOST_FILE: "/run/secrets/mysql-root-host"
     ports:
       - "3306:3306"
     volumes:
+      # 数据目录（官方默认路径）
       - ./data:/var/lib/mysql
+      # 自定义 cnf 片段目录（目录内 *.cnf 会覆盖/追加默认配置）
+      # - ./conf.d:/etc/mysql/conf.d
+      # 首次初始化脚本：.sh / .sql / .sql.gz / .sql.bz2 / .sql.xz / .sql.zst（按文件名排序执行）
+      # - ./initdb:/docker-entrypoint-initdb.d
     command:
+      # 以下为传给 mysqld 的启动参数（也可用 conf.d 代替）
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
       - --sql-mode=ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+      # 默认字符集客户端协商相关（按需）
+      # - --character-set-client-handshake=FALSE
+      # InnoDB 缓冲池大小（按机器内存调整）
+      # - --innodb-buffer-pool-size=256M
+      # 最大连接数
+      # - --max-connections=200
+      # 慢查询日志
+      # - --slow-query-log=1
+      # - --long-query-time=2
+      # 绑定地址（容器内通常 0.0.0.0；一般无需改）
+      # - --bind-address=0.0.0.0
+      # 服务器时区
+      # - --default-time-zone=+08:00

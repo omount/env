@@ -1,13 +1,59 @@
+# 官方镜像文档
+# - Docker Hub: https://hub.docker.com/_/postgres
+# - docker-library 说明: https://github.com/docker-library/docs/blob/master/postgres/README.md
+# - 服务端配置: https://www.postgresql.org/docs/16/runtime-config.html
+# - pg_hba: https://www.postgresql.org/docs/16/auth-pg-hba-conf.html
+# - 参数详解（本仓库）: docs/pgsql/parameters.md
+# 注意: Docker 专用环境变量仅在数据目录为空（首次 initdb）时生效
+
 services:
   pgsql:
     image: postgres:16
     container_name: pgsql
     restart: always
+    # 官方 Compose 示例建议设置共享内存，避免部分场景报错（按需取消注释）
+    # shm_size: 128mb
     environment:
+      # 超级用户名（未设置时默认为 postgres；本模板为 root）
       POSTGRES_USER: root
+      # 超级用户密码（官方必填，除非 HOST_AUTH_METHOD=trust）
       POSTGRES_PASSWORD: "123456"
+      # 首次创建的默认数据库名（未设置时与 POSTGRES_USER 同名）
       POSTGRES_DB: root
+      # 传给 initdb 的额外参数（空格分隔），例如开启数据页校验和
+      # POSTGRES_INITDB_ARGS: "--data-checksums"
+      # 将 WAL（事务日志）放到独立目录（性能/可靠性隔离时使用）
+      # POSTGRES_INITDB_WALDIR: "/var/lib/postgresql/wal"
+      # 控制 pg_hba 中 host 连接的认证方式；默认 14+ 为 scram-sha-256；trust 极不安全
+      # POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
+      # 数据目录路径（PG16 官方默认 /var/lib/postgresql/data；改动需同步 volumes）
+      # PGDATA: "/var/lib/postgresql/data"
+      # Docker Secrets：从文件读入（支持 POSTGRES_PASSWORD / POSTGRES_USER / POSTGRES_DB / POSTGRES_INITDB_ARGS）
+      # POSTGRES_PASSWORD_FILE: "/run/secrets/postgres-passwd"
+      # POSTGRES_USER_FILE: "/run/secrets/postgres-user"
+      # POSTGRES_DB_FILE: "/run/secrets/postgres-db"
+      # POSTGRES_INITDB_ARGS_FILE: "/run/secrets/postgres-initdb-args"
     ports:
       - "5432:5432"
     volumes:
+      # PG16 及以下：必须挂载到 /var/lib/postgresql/data（挂 /var/lib/postgresql 不会持久化）
       - ./data:/var/lib/postgresql/data
+      # 首次初始化脚本：*.sql / *.sql.gz / *.sh（仅空数据目录时执行）
+      # - ./initdb:/docker-entrypoint-initdb.d
+      # 自定义配置文件示例（需配合 command -c config_file=...）
+      # - ./postgresql.conf:/etc/postgresql/postgresql.conf
+    # 传给 postgres 的 -c 配置项（任意 postgresql.conf 参数均可）
+    # command:
+    #   - "postgres"
+    #   - "-c"
+    #   - "listen_addresses=*"
+    #   - "-c"
+    #   - "max_connections=200"
+    #   - "-c"
+    #   - "shared_buffers=256MB"
+    #   - "-c"
+    #   - "log_timezone=Asia/Shanghai"
+    #   - "-c"
+    #   - "timezone=Asia/Shanghai"
+    #   # - "-c"
+    #   # - "config_file=/etc/postgresql/postgresql.conf"

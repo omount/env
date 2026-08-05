@@ -73,3 +73,11 @@ docker exec -it mysql mysqladmin ping -uroot -p123456
 - 已显式开启 `ONLY_FULL_GROUP_BY`（随 `sql_mode` 一并设置）
 - `./data` 已 gitignore，勿把库文件提交进仓库
 - 密码仅作归档演示，生产请自行更换
+
+## 参数与官方文档
+
+- 本仓库参数说明：[docs/mysql/parameters.md](../docs/mysql/parameters.md)
+- Docker Hub：https://hub.docker.com/_/mysql
+- docker-library：https://github.com/docker-library/docs/blob/master/mysql/README.md
+
+可选环境变量 / 卷 / `mysqld` 参数已在 `docker-compose.yml` 中注释说明，按需取消注释。

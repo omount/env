@@ -70,3 +70,12 @@ docker exec -it redis redis-cli -a 123456 ping
 - 使用 `--requirepass`，未配置 ACL 用户 `root`
 - `./data` 已 gitignore，勿把持久化文件提交进仓库
 - 密码仅作归档演示，生产请自行更换
+
+## 参数与官方文档
+
+- 本仓库参数说明：[docs/redis/parameters.md](../docs/redis/parameters.md)
+- Docker Hub：https://hub.docker.com/_/redis
+- docker-library：https://github.com/docker-library/docs/blob/master/redis/README.md
+- 配置参考：https://redis.io/docs/latest/operate/oss_and_stack/management/config/
+
+可选 `redis-server` 参数已在 `docker-compose.yml` 中注释说明，按需取消注释。

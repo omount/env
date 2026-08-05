@@ -54,9 +54,9 @@
 |------|------|------|------|
 | [bun](bun/) | 安装 Bun（Linux / macOS / Windows） | `./install.sh` | [模块说明](bun/README.md) |
 | [docker](docker/) | 通用安装 / Ubuntu 官方 apt 源 | `./install.sh` · `./ubuntu-install.sh` | [模块说明](docker/README.md) |
-| [mysql](mysql/) | MySQL 8.4（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](mysql/README.md) |
-| [redis](redis/) | Redis 7.4（仅密码 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](redis/README.md) |
-| [pgsql](pgsql/) | PostgreSQL 16（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](pgsql/README.md) |
+| [mysql](mysql/) | MySQL 8.4（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](mysql/README.md) · [参数](docs/mysql/parameters.md) |
+| [redis](redis/) | Redis 7.4（仅密码 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](redis/README.md) · [参数](docs/redis/parameters.md) |
+| [pgsql](pgsql/) | PostgreSQL 16（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](pgsql/README.md) · [参数](docs/pgsql/parameters.md) |
 | [openwebui](openwebui/) | Open WebUI（端口 3000，API URL/Key 按需填写） | `docker-compose.yml` | [模块说明](openwebui/README.md) |
 | [gitlab](gitlab/) | GitLab CE 单机 Compose + 运维命令 | `docker-compose.yml` · `./main.sh` | [模块说明](gitlab/README.md) · [踩坑详解](docs/gitlab/pitfalls.md) |
 

@@ -1,3 +1,13 @@
+# 官方镜像文档
+# - Docker Hub: https://hub.docker.com/_/redis
+# - docker-library 说明: https://github.com/docker-library/docs/blob/master/redis/README.md
+# - 配置参考: https://redis.io/docs/latest/operate/oss_and_stack/management/config/
+# - 持久化: https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/
+# - 安全: https://redis.io/docs/latest/operate/oss_and_stack/management/security/
+# - 参数详解（本仓库）: docs/redis/parameters.md
+# 说明: redis:7.4 官方镜像主要以 redis-server 命令行 / redis.conf 配置；
+#       Hub 文档中的 SKIP_DROP_PRIVS / SKIP_FIX_PERMS 标注为 8.0.2+，本模板不启用。
+
 services:
   redis:
     image: redis:7.4
@@ -6,10 +16,51 @@ services:
     ports:
       - "6379:6379"
     volumes:
+      # 数据目录（RDB/AOF 等写入此处）
       - ./data:/data
+      # 自定义配置文件目录（需配合 command 指向 conf）
+      # - ./conf:/usr/local/etc/redis
     command:
       - redis-server
+      # 访问密码（本模板已启用；生产请更换）
       - --requirepass
       - "123456"
+      # 开启 AOF 持久化
       - --appendonly
       - "yes"
+      # 使用自定义 conf 时改为例如：
+      # - /usr/local/etc/redis/redis.conf
+      # RDB：每 N 秒至少 M 次写则快照（可多条 --save；传空字符串可禁用）
+      # - --save
+      # - "60"
+      # - "1"
+      # 日志级别：debug / verbose / notice / warning
+      # - --loglevel
+      # - warning
+      # 最大内存（超过后按淘汰策略删键）
+      # - --maxmemory
+      # - 256mb
+      # 淘汰策略：noeviction / allkeys-lru / volatile-lru / allkeys-lfu / volatile-lfu / allkeys-random / volatile-random / volatile-ttl 等
+      # - --maxmemory-policy
+      # - allkeys-lru
+      # 逻辑库数量（默认 16）
+      # - --databases
+      # - "16"
+      # 空闲连接超时秒数（0 表示不超时）
+      # - --timeout
+      # - "0"
+      # TCP keepalive 秒数
+      # - --tcp-keepalive
+      # - "300"
+      # 保护模式（镜像为便于容器网络默认关闭；对公网暴露时务必设密码）
+      # - --protected-mode
+      # - "yes"
+      # AOF fsync 策略：always / everysec / no
+      # - --appendfsync
+      # - everysec
+      # 绑定地址（容器场景通常默认即可）
+      # - --bind
+      # - "0.0.0.0"
+      # 监听端口（与 ports 映射一致时才需改）
+      # - --port
+      # - "6379"
