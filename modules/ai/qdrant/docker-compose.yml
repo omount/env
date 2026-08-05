@@ -1,0 +1,24 @@
+# 官方出处:
+#   https://qdrant.tech/documentation/guides/installation/
+#   Hub: https://hub.docker.com/r/qdrant/qdrant （tag v1.14.1）
+# 本仓库: docs/qdrant/README.md
+# 最小可跑: REST 6333 + gRPC 6334；默认无 API Key（演示）
+# 账号: 无（可启用 QDRANT__SERVICE__API_KEY）
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.14.1
+    container_name: qdrant
+    restart: always
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+      # [ports] 集群 P2P
+      # - "6335:6335"
+    volumes:
+      - ./data:/qdrant/storage
+      # [挂载 conf]
+      # - ./production.yaml:/qdrant/config/production.yaml:ro
+    # [environment] QDRANT__SERVICE__API_KEY: "12345678"；API Key，生产建议开启；如需启用请新增 environment 块
+    # [environment] QDRANT__SERVICE__GRPC_PORT: "6334"；gRPC 端口，默认 6334；如需启用请新增 environment 块
+    # [environment] QDRANT__LOG_LEVEL: INFO；日志级别；如需启用请新增 environment 块
