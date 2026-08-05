@@ -1,0 +1,30 @@
+# 官方出处:
+#   Hub: https://hub.docker.com/_/phpmyadmin （tag 5.2.3）
+#   文档: https://docs.phpmyadmin.net/en/latest/setup.html#docker
+# 本仓库: docs/phpmyadmin/README.md
+# 最小可跑: 连本仓 MySQL（需先 ./easyenv.sh up mysql）
+# 演示: 通过 PMA 登录 MySQL root/123456（与 modules/database/mysql 一致）
+
+services:
+  phpmyadmin:
+    image: phpmyadmin:5.2.3
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      # [environment] 目标 MySQL 主机（同 compose 网络内服务名，或宿主机特殊 DNS）
+      # 默认：连宿主机已映射的 MySQL（Docker Desktop / Linux host.docker.internal）
+      PMA_HOST: host.docker.internal
+      PMA_PORT: "3306"
+      # [environment] 允许任意服务器（高级）
+      # PMA_ARBITRARY: "1"
+      # [environment] 绝对 URI（反代时）
+      # PMA_ABSOLUTE_URI: http://127.0.0.1:8082/
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "8082:80"
+    # [extra_hosts] Linux 下 host.docker.internal 可能需显式
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    # 若与 mysql 同网络，改为 PMA_HOST=mysql 并:
+    # networks: [easyenv-mysql]
+    # external network 见 docs/phpmyadmin
