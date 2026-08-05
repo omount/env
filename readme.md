@@ -39,6 +39,9 @@
 ├── templates/module/         # 新模块脚手架
 ├── bun/                      # Bun 运行时安装
 ├── docker/                   # Docker Engine 安装
+├── mysql/                    # MySQL 8.4
+├── redis/                    # Redis 7.4
+├── pgsql/                    # PostgreSQL 16
 └── gitlab/                   # GitLab CE Compose + 运维 CLI
 ```
 
@@ -50,6 +53,9 @@
 |------|------|------|------|
 | [bun](bun/) | 安装 Bun（Linux / macOS / Windows） | `./install.sh` | [模块说明](bun/README.md) |
 | [docker](docker/) | 通用安装 / Ubuntu 官方 apt 源 | `./install.sh` · `./ubuntu-install.sh` | [模块说明](docker/README.md) |
+| [mysql](mysql/) | MySQL 8.4（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](mysql/README.md) |
+| [redis](redis/) | Redis 7.4（仅密码 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](redis/README.md) |
+| [pgsql](pgsql/) | PostgreSQL 16（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](pgsql/README.md) |
 | [gitlab](gitlab/) | GitLab CE 单机 Compose + 运维命令 | `docker-compose.yml` · `./main.sh` | [模块说明](gitlab/README.md) · [踩坑详解](docs/gitlab/pitfalls.md) |
 
 ### 快速一览
@@ -61,6 +67,11 @@ cd bun && ./install.sh
 # 容器引擎（推荐便捷脚本；Ubuntu 可用官方源）
 cd docker && ./install.sh
 # cd docker && ./ubuntu-install.sh
+
+# 中间件（数据映射到各模块 ./data）
+cd mysql && docker compose up -d
+cd redis && docker compose up -d
+cd pgsql && docker compose up -d
 
 # GitLab CE（先改 YOUR_IP_ADDRESS，再 compose up）
 cd gitlab && ./main.sh help
