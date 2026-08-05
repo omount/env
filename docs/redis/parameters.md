@@ -8,6 +8,7 @@
 |------|------|
 | Docker Hub `redis` | https://hub.docker.com/_/redis |
 | docker-library 完整说明 | https://github.com/docker-library/docs/blob/master/redis/README.md |
+| 上游仓库 | https://github.com/redis/redis |
 | Redis 配置参数 | https://redis.io/docs/latest/operate/oss_and_stack/management/config/ |
 | Redis 持久化 | https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/ |
 | Redis 安全 / Protected mode | https://redis.io/docs/latest/operate/oss_and_stack/management/security/ |

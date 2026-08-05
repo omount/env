@@ -8,6 +8,7 @@
 - Linux/macOS 脚本：`curl -fsSL https://bun.sh/install | bash`  
 - Windows 脚本：`irm bun.sh/install.ps1 | iex`  
 - 源码编译：https://bun.com/docs/project/contributing  
+- 上游仓库：https://github.com/oven-sh/bun  
 
 详解：[docs/bun/install.md](../docs/bun/install.md)
 

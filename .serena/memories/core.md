@@ -1,18 +1,11 @@
 # Core
 
-**EsayEnv** — 让天下没有难配置的环境. ADS archive. MIT © omount.
-Authoritative norms: `docs/conventions.md` (password ladder; Bun/Docker official+compile install; Docker-first deploy).
+**EsayEnv** — 让天下没有难配置的环境. MIT © omount. Norms: `docs/conventions.md`.
 
-Prefer Docker Compose for mysql/redis/pgsql/minio/openwebui/gitlab.
+Modules: bun, nodejs (nvm+build), docker, mysql, redis, pgsql, minio, elk(8.17.10 elastic/123456), grafana(11.5.2 admin/123456 :3001), openwebui, gitlab.
 
-## Layout
+Prefer Compose. Password ladder 123456→12345678→12345678910.
 
-README index; docs/*; bun/ docker/ mysql/ redis/ pgsql/ minio/ openwebui/ gitlab/ templates/
+Mandatory: scripts/compose must cite and follow official docs (no invented config); open-source modules must label upstream repo URLs. See docs/conventions.md §12.
 
-## Demo creds
-
-root or admin; password 123456 → 12345678 → 12345678910 ladder. MinIO: admin/12345678. Bucket `data` public-read.
-
-## Memory map
-
-`mem:tech_stack` `mem:suggested_commands` `mem:conventions` `mem:task_completion` `mem:gitlab/core` `mem:minio/core`
+Memory: `mem:conventions` `mem:tech_stack` `mem:minio/core` `mem:gitlab/core`

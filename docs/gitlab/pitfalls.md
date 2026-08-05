@@ -7,6 +7,15 @@
 
 目录约定：`/opt/gitlab/{docker-compose.yml,config,logs,data}`
 
+## 官方出处
+
+| 项 | URL |
+|----|-----|
+| Docker 安装 | https://docs.gitlab.com/ee/install/docker/ |
+| Docker Hub | https://hub.docker.com/r/gitlab/gitlab-ce |
+| 上游仓库（Omnibus） | https://gitlab.com/gitlab-org/omnibus-gitlab |
+| 产品仓库 | https://gitlab.com/gitlab-org/gitlab |
+
 ---
 
 ## 1. 最终 docker-compose.yml

@@ -2,6 +2,13 @@
 
 单机部署 GitLab CE 的 Compose 模板与常用运维命令。
 
+## 官方出处
+
+- Docker 安装：https://docs.gitlab.com/ee/install/docker/  
+- Docker Hub：https://hub.docker.com/r/gitlab/gitlab-ce  
+- 上游仓库（Omnibus）：https://gitlab.com/gitlab-org/omnibus-gitlab  
+- 产品仓库：https://gitlab.com/gitlab-org/gitlab  
+
 ## 前置条件
 
 - 已安装 Docker 与 Compose V2（可用本仓库 `docker/` 模块）

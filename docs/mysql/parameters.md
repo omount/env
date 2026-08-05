@@ -8,6 +8,7 @@
 |------|------|
 | Docker Hub `mysql` | https://hub.docker.com/_/mysql |
 | docker-library 完整说明 | https://github.com/docker-library/docs/blob/master/mysql/README.md |
+| 上游仓库 | https://github.com/mysql/mysql-server |
 | MySQL 环境变量（服务端） | https://dev.mysql.com/doc/refman/8.4/en/environment-variables.html |
 | 列出全部 mysqld 选项 | `docker run -it --rm mysql:8.4 --verbose --help` |
 

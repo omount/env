@@ -78,5 +78,6 @@ docker exec -it pgsql pg_isready -U root
 - Docker Hub：https://hub.docker.com/_/postgres
 - docker-library：https://github.com/docker-library/docs/blob/master/postgres/README.md
 - 运行时配置：https://www.postgresql.org/docs/16/runtime-config.html
+- 上游仓库：https://github.com/postgres/postgres
 
 可选环境变量 / 卷 / `-c` 参数已在 `docker-compose.yml` 中注释说明，按需取消注释。

@@ -1,6 +1,7 @@
 # 官方镜像文档
 # - Docker Hub: https://hub.docker.com/_/redis
 # - docker-library 说明: https://github.com/docker-library/docs/blob/master/redis/README.md
+# - 上游仓库: https://github.com/redis/redis
 # - 配置参考: https://redis.io/docs/latest/operate/oss_and_stack/management/config/
 # - 持久化: https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/
 # - 安全: https://redis.io/docs/latest/operate/oss_and_stack/management/security/

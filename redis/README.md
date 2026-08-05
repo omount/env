@@ -77,5 +77,6 @@ docker exec -it redis redis-cli -a 123456 ping
 - Docker Hub：https://hub.docker.com/_/redis
 - docker-library：https://github.com/docker-library/docs/blob/master/redis/README.md
 - 配置参考：https://redis.io/docs/latest/operate/oss_and_stack/management/config/
+- 上游仓库：https://github.com/redis/redis
 
 可选 `redis-server` 参数已在 `docker-compose.yml` 中注释说明，按需取消注释。

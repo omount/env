@@ -1,3 +1,9 @@
+# 官方出处（验收依据）:
+#   Quick Start: https://docs.openwebui.com/getting-started/quick-start/
+#   上游仓库: https://github.com/open-webui/open-webui
+#   镜像: ghcr.io/open-webui/open-webui （官方亦发布 openwebui/open-webui）
+# 本模板钉死 v0.11.0；端口映射 3000:8080 与官方 Quick Start 一致
+
 services:
   openwebui:
     image: ghcr.io/open-webui/open-webui:v0.11.0

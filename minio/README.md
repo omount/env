@@ -4,6 +4,13 @@
 
 默认用户 `admin`，后台密码 `12345678`（官方要求 Secret 至少 8 位）。数据映射到 `./data`。
 
+## 官方出处
+
+- Docker Hub：https://hub.docker.com/r/minio/minio  
+- 官方文档：https://min.io/docs/minio/linux/index.html  
+- 上游仓库：https://github.com/minio/minio  
+- 本仓库详解：[docs/minio/README.md](../docs/minio/README.md)
+
 ## 前置条件
 
 - Docker 与 Compose V2

@@ -1,6 +1,7 @@
 # 官方镜像文档
 # - Docker Hub: https://hub.docker.com/_/postgres
 # - docker-library 说明: https://github.com/docker-library/docs/blob/master/postgres/README.md
+# - 上游仓库: https://github.com/postgres/postgres
 # - 服务端配置: https://www.postgresql.org/docs/16/runtime-config.html
 # - pg_hba: https://www.postgresql.org/docs/16/auth-pg-hba-conf.html
 # - 参数详解（本仓库）: docs/pgsql/parameters.md

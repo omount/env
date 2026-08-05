@@ -28,6 +28,7 @@
 4. **机密零入库** — 占位符（如 `YOUR_IP_ADDRESS`），不提交密码与 token  
 5. **变更克制** — 只改需求范围，不擅自替换既定技术路径  
 6. **Docker 优先** — 能容器化的服务优先 Compose 一键拉起  
+7. **对照官方** — 脚本与部署对照官方文档编写/验收；开源项目标注上游仓库（见 [docs/conventions.md](docs/conventions.md) 第 12 节）  
 
 ---
 
@@ -44,11 +45,14 @@ EsayEnv/
 │   └── ...
 ├── templates/module/         # 新模块脚手架
 ├── bun/                      # Bun 运行时安装
+├── nodejs/                   # Node.js 安装（nvm / 编译）
 ├── docker/                   # Docker Engine / Desktop 安装
 ├── mysql/                    # MySQL 8.4
 ├── redis/                    # Redis 7.4
 ├── pgsql/                    # PostgreSQL 16
 ├── minio/                    # MinIO（未阉割老版本）
+├── elk/                      # Elasticsearch + Logstash + Kibana
+├── grafana/                  # Grafana
 ├── openwebui/                # Open WebUI
 └── gitlab/                   # GitLab CE Compose + 运维 CLI
 ```
@@ -60,11 +64,14 @@ EsayEnv/
 | 模块 | 能力 | 入口 | 文档 |
 |------|------|------|------|
 | [bun](bun/) | 安装 Bun（官方脚本 / 编译） | `./install.sh` · `./build-from-source.sh` | [模块说明](bun/README.md) · [安装详解](docs/bun/install.md) |
+| [nodejs](nodejs/) | 安装 Node.js（nvm / 编译） | `./install.sh` · `./build-from-source.sh` | [模块说明](nodejs/README.md) · [安装详解](docs/nodejs/install.md) |
 | [docker](docker/) | Windows / Linux / macOS 安装 Docker | `./install.sh` · `./ubuntu-install.sh` · `./build-from-source.sh` | [模块说明](docker/README.md) · [安装详解](docs/docker/install.md) |
 | [mysql](mysql/) | MySQL 8.4（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](mysql/README.md) · [参数](docs/mysql/parameters.md) |
 | [redis](redis/) | Redis 7.4（仅密码 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](redis/README.md) · [参数](docs/redis/parameters.md) |
 | [pgsql](pgsql/) | PostgreSQL 16（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](pgsql/README.md) · [参数](docs/pgsql/parameters.md) |
 | [minio](minio/) | MinIO 未阉割版（admin / 12345678，默认公开读，AWS S3 直传） | `docker-compose.yml` | [模块说明](minio/README.md) · [访问策略](docs/minio/access.md) |
+| [elk](elk/) | ELK 8.17.10（官方 Compose 单节点裁剪；elastic / 123456） | `docker-compose.yml` · `.env` | [模块说明](elk/README.md) · [文档](docs/elk/README.md) |
+| [grafana](grafana/) | Grafana 11.5.2（admin / 123456，端口 3001） | `docker-compose.yml` | [模块说明](grafana/README.md) · [文档](docs/grafana/README.md) |
 | [openwebui](openwebui/) | Open WebUI（端口 3000，API URL/Key 按需填写） | `docker-compose.yml` | [模块说明](openwebui/README.md) |
 | [gitlab](gitlab/) | GitLab CE 单机 Compose + 运维命令 | `docker-compose.yml` · `./main.sh` | [模块说明](gitlab/README.md) · [踩坑详解](docs/gitlab/pitfalls.md) |
 
@@ -75,14 +82,17 @@ EsayEnv/
 cd docker && ./install.sh          # Linux 便捷脚本
 # Windows / macOS 见 docs/docker/install.md（Docker Desktop）
 
-# 2) （可选）开发机安装 Bun
+# 2) （可选）开发机运行时
 cd bun && ./install.sh
+cd nodejs && ./install.sh
 
 # 3) 用 Docker 拉起中间件
 cd mysql && docker compose up -d
 cd redis && docker compose up -d
 cd pgsql && docker compose up -d
 cd minio && docker compose up -d
+cd elk && docker compose up -d
+cd grafana && docker compose up -d
 cd openwebui && docker compose up -d
 
 # GitLab CE（先改 YOUR_IP_ADDRESS）

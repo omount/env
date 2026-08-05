@@ -3,6 +3,13 @@
 官方镜像单机部署。Web 端口 `3000`，数据目录映射到 `./data`。  
 OpenAI 兼容接口的 Base URL / API Key 默认注释，按需要填写后启用。
 
+## 官方出处
+
+- Quick Start（Docker）：https://docs.openwebui.com/getting-started/quick-start/  
+- 上游仓库：https://github.com/open-webui/open-webui  
+- 官方镜像：`ghcr.io/open-webui/open-webui`（文档亦列出 Docker Hub `openwebui/open-webui`）  
+- 本模板钉死：`v0.11.0`（官方建议生产钉版本 tag，勿用滚动 `:main` / `:latest`）
+
 ## 前置条件
 
 - Docker 与 Compose V2

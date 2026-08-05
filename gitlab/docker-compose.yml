@@ -1,3 +1,10 @@
+# 官方出处（验收依据）:
+#   Docker 安装: https://docs.gitlab.com/ee/install/docker/
+#   Docker Hub: https://hub.docker.com/r/gitlab/gitlab-ce
+#   上游仓库（Omnibus）: https://gitlab.com/gitlab-org/omnibus-gitlab
+#   产品仓库: https://gitlab.com/gitlab-org/gitlab
+# 详解与踩坑: docs/gitlab/pitfalls.md
+
 services:
   gitlab:
     image: gitlab/gitlab-ce:18.9.2-ce.0

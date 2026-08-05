@@ -79,5 +79,6 @@ docker exec -it mysql mysqladmin ping -uroot -p123456
 - 本仓库参数说明：[docs/mysql/parameters.md](../docs/mysql/parameters.md)
 - Docker Hub：https://hub.docker.com/_/mysql
 - docker-library：https://github.com/docker-library/docs/blob/master/mysql/README.md
+- 上游仓库：https://github.com/mysql/mysql-server
 
 可选环境变量 / 卷 / `mysqld` 参数已在 `docker-compose.yml` 中注释说明，按需取消注释。

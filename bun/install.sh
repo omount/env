@@ -6,6 +6,7 @@ set -euo pipefail
 #   - 安装说明: https://bun.sh/docs/installation
 #   - Linux/macOS: https://bun.sh/install  (curl -fsSL https://bun.sh/install | bash)
 #   - Windows:     https://bun.sh/install.ps1  (irm bun.sh/install.ps1 | iex)
+#   - 上游仓库: https://github.com/oven-sh/bun
 # 详解: docs/bun/install.md
 
 usage() {

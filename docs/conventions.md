@@ -51,6 +51,7 @@ EsayEnv/
 3. 版本钉死（禁止生产模板使用 `:latest`）  
 4. 机密与演示口令遵守第 9 节；禁止提交真实生产 token / 未脱敏密钥  
 5. 可选：`docs/<module>/pitfalls.md`、`parameters.md`、`install.md` 等长文  
+6. **官方文档 URL** 与（若为开源）**上游仓库地址**：见第 12 节  
 
 ---
 
@@ -151,6 +152,16 @@ cp -r templates/module <新模块名>
 | 详解 | `docs/docker/install.md` |
 | 部署推荐 | 装好 Docker 后，各中间件模块优先 `docker compose up -d` |
 
+### 10.3 Node.js（已落地）
+
+| 项 | 约定 |
+|----|------|
+| 官方出处 | https://nodejs.org/en/download ；nvm：https://github.com/nvm-sh/nvm#install--update-script（`v0.40.6`） |
+| 本仓库脚本 | `nodejs/install.sh`（`curl -o- .../v0.40.6/install.sh \| bash` + `nvm install --lts`） |
+| 编译方案 | `nodejs/build-from-source.sh`；出处 https://github.com/nodejs/node/blob/main/BUILDING.md |
+| 详解 | `docs/nodejs/install.md` |
+| Windows | 官网安装包或 nvm-windows（脚本内提示） |
+
 ---
 
 ## 11. 已落地模块惯例（纳入本规范）
@@ -159,7 +170,39 @@ cp -r templates/module <新模块名>
 |------|----------|
 | mysql / redis / pgsql | 官方镜像钉死版本；演示口令按第 9 节；参数注释 + `docs/*/parameters.md` |
 | minio | 钉死未阉割社区版（禁止 `:latest`）；默认桶名 `data`；默认**公开读**；直传使用 **AWS S3 SDK**（不用 MinIO SDK）；签名读见 `docs/minio/access.md` |
+| elk | 基于官方 8.17 Compose（钉死 `8.17.10`）；`elastic`/`kibana_system` 密码按官方 `.env` 规则；单节点裁剪；Logstash 按官方 Docker 配置挂载 pipeline，ES output 用 `ssl_certificate_authorities`；见 `docs/elk/README.md` |
+| grafana | 钉死 `grafana/grafana:11.5.2`；`admin` / `123456`；宿主机端口 `3001`（避开 openwebui `3000`） |
 | openwebui | 钉死版本 tag；`OPENAI_API_BASE_URL` / `OPENAI_API_KEY` 默认注释，按需填写 |
 | gitlab | 钉死 CE 小版本；模块短 README；长文 `docs/gitlab/pitfalls.md` |
+| bun / docker / nodejs | 安装遵循第 10 节（官方脚本出处 + 封装 + 编译方案） |
 
 新增同类中间件时：默认公开读/私有读策略、SDK 选型等若与上表冲突，须先改本规范再改实现。
+
+---
+
+## 12. 官方文档对照与上游仓库
+
+### 12.1 对照官方文档编写 / 验收（强制）
+
+所有脚本、Compose、安装步骤与参数说明**必须对照官方文档编写**，验收时以官方文档为准，**禁止凭经验臆造配置**。
+
+| 要求 | 说明 |
+|------|------|
+| 出处可查 | 模块 `README.md`、入口脚本/`docker-compose.yml` 头部注释、`docs/<module>/` 中写明官方文档 URL |
+| 写法等价 | 本仓库封装应能对应到官方文档中的命令或示例（裁剪节点数、改演示口令、改宿主机端口等差异须在文档中明示） |
+| 验收依据 | 改配置或排错时先打开官方页核对；发现与官方冲突以官方为准修正本仓库 |
+| 禁止 | 关闭官方默认安全模型却不写明依据；杜撰环境变量名/镜像 tag；用非官方镜像冒充官方 |
+
+安装类模块另须遵守第 10 节（官方脚本出处 + 封装 + 编译方案）。
+
+### 12.2 开源项目标注上游仓库（强制）
+
+模块对应的开源项目**若存在公开仓库**，须在模块 `README.md`（及 `docs/<module>/` 总览，如有）中标注**上游仓库地址**（GitHub / GitLab / 官方 Git 等）。
+
+| 建议同时标明 | 示例 |
+|--------------|------|
+| 官方文档 | `https://…`（安装 / Docker / 配置页） |
+| 上游仓库 | `https://github.com/…` 或 `https://gitlab.com/…` |
+| 官方镜像页（若适用） | Docker Hub / GHCR 等 |
+
+无独立源码仓（仅发行版/闭源）时，在 README 注明「无公开源码仓」并保留官方文档链接即可。

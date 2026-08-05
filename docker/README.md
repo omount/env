@@ -9,7 +9,7 @@
 - Desktop Windows：https://docs.docker.com/desktop/setup/install/windows-install/  
 - Desktop macOS：https://docs.docker.com/desktop/setup/install/mac-install/  
 - Ubuntu：https://docs.docker.com/engine/install/ubuntu/  
-- 源码（Moby）：https://github.com/moby/moby  
+- 上游仓库（Moby / Engine 源码）：https://github.com/moby/moby  
 
 详解（含 Win / Linux / macOS）：[docs/docker/install.md](../docs/docker/install.md)
 

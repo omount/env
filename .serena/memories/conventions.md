@@ -31,6 +31,10 @@ If upstream has one-liner: cite official URLs, wrap in `install.sh`, provide `bu
 
 Chinese commits when requested; gitignore runtime data/node_modules/src build worktrees; no real prod secrets.
 
+## Official docs + upstream repos (mandatory)
+
+All scripts/compose/docs must be written and verified against official documentation URLs (no invented config). Open-source modules must label upstream repo (GitHub/GitLab). See docs/conventions.md §12.
+
 ## Scope
 
 Only change requested paths; do not swap user’s technical approach.

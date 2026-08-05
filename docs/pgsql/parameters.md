@@ -8,6 +8,7 @@
 |------|------|
 | Docker Hub `postgres` | https://hub.docker.com/_/postgres |
 | docker-library 完整说明 | https://github.com/docker-library/docs/blob/master/postgres/README.md |
+| 上游仓库 | https://github.com/postgres/postgres |
 | PostgreSQL 16 运行时配置 | https://www.postgresql.org/docs/16/runtime-config.html |
 | `pg_hba.conf` 认证 | https://www.postgresql.org/docs/16/auth-pg-hba-conf.html |
 | `initdb` | https://www.postgresql.org/docs/16/app-initdb.html |

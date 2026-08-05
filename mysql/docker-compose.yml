@@ -1,6 +1,7 @@
 # 官方镜像文档
 # - Docker Hub: https://hub.docker.com/_/mysql
 # - docker-library 说明: https://github.com/docker-library/docs/blob/master/mysql/README.md
+# - 上游仓库: https://github.com/mysql/mysql-server
 # - 参数详解（本仓库）: docs/mysql/parameters.md
 # - mysqld 完整选项: docker run -it --rm mysql:8.4 --verbose --help
 # 注意: 下列环境变量仅在数据目录为空（首次初始化）时生效

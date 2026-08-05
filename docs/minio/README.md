@@ -17,6 +17,8 @@
 | 文档 | 链接 |
 |------|------|
 | Docker Hub | https://hub.docker.com/r/minio/minio |
+| 官方文档 | https://min.io/docs/minio/linux/index.html |
+| 上游仓库 | https://github.com/minio/minio |
 | MinIO + Nginx 反代 | https://min.io/docs/minio/linux/integrations/setup-nginx-proxy-with-minio.html |
 | 本模块 Nginx 片段 | [`minio/nginx/minio.conf`](../../minio/nginx/minio.conf) |
 | 浏览器直传 | [direct-upload.md](direct-upload.md) |
