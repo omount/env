@@ -1,5 +1,7 @@
 # ADS 仓库规范（Archive Deploy Standard）
 
+项目名：**EsayEnv** — 让天下没有难配置的环境。
+
 本文件为本仓库唯一权威规范。根 `README.md` 仅作索引；模块细节见各模块 `README.md` 与 `docs/<module>/`。
 
 ## 1. 仓库定位

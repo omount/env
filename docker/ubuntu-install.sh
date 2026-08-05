@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# 来源文章: https://www.cnblogs.com/autopwn/p/18706526
-# Ubuntu 通过官方 apt 源安装 Docker CE
+# Ubuntu：按 Docker 官方 apt 源安装 Engine + Compose 插件
+# 出处: https://docs.docker.com/engine/install/ubuntu/
+# 详解: docs/docker/install.md
 
 if [[ "${1:-}" == "-h" || "${1:-}" == "--help" || "${1:-}" == "help" ]]; then
   cat <<'EOF'
 用法: ./ubuntu-install.sh
 
-在 Ubuntu 上添加 Docker 官方 apt 源并安装:
+按官方文档在 Ubuntu 上安装:
   docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+官方步骤: https://docs.docker.com/engine/install/ubuntu/
 EOF
   exit 0
 fi
+
+echo "出处: https://docs.docker.com/engine/install/ubuntu/"
 
 # 更新包索引并安装依赖
 sudo apt update
@@ -33,3 +38,4 @@ sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 echo "安装完成。可执行: docker --version && docker compose version"
+echo "EsayEnv 推荐用 Docker Compose 部署各中间件模块。"

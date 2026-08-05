@@ -1,8 +1,10 @@
-# 归档部署方式
+# EsayEnv
 
-**ADS — Archive Deploy Standard**
+**让天下没有难配置的环境**
 
-可复用的安装脚本与生产级部署经验归档。把「装得上、起得来、踩过的坑不再踩第二次」固化为版本钉死的模块资产。
+可复用的安装脚本与生产级部署经验归档（ADS：Archive Deploy Standard）。把「装得上、起得来、踩过的坑不再踩第二次」固化为版本钉死的模块资产。
+
+> **推荐**：中间件与业务组件优先使用 **Docker / Compose** 部署（见 [docker/](docker/) 与 [docs/docker/install.md](docs/docker/install.md)）。
 
 ---
 
@@ -25,20 +27,24 @@
 3. **文档分层** — 根 README 索引；模块短说明；长文进 `docs/<module>/`  
 4. **机密零入库** — 占位符（如 `YOUR_IP_ADDRESS`），不提交密码与 token  
 5. **变更克制** — 只改需求范围，不擅自替换既定技术路径  
+6. **Docker 优先** — 能容器化的服务优先 Compose 一键拉起  
 
 ---
 
 ## 仓库结构
 
 ```text
-归档部署方式/
+EsayEnv/
 ├── README.md                 # 本页：总览与索引
+├── LICENSE                   # MIT © omount
 ├── docs/
 │   ├── conventions.md        # ADS 官方规范
-│   └── gitlab/pitfalls.md    # GitLab 踩坑与详解
+│   ├── bun/install.md        # Bun 官方脚本 + 编译安装
+│   ├── docker/install.md     # Docker Win/Linux/macOS + 推荐部署
+│   └── ...
 ├── templates/module/         # 新模块脚手架
 ├── bun/                      # Bun 运行时安装
-├── docker/                   # Docker Engine 安装
+├── docker/                   # Docker Engine / Desktop 安装
 ├── mysql/                    # MySQL 8.4
 ├── redis/                    # Redis 7.4
 ├── pgsql/                    # PostgreSQL 16
@@ -53,8 +59,8 @@
 
 | 模块 | 能力 | 入口 | 文档 |
 |------|------|------|------|
-| [bun](bun/) | 安装 Bun（Linux / macOS / Windows） | `./install.sh` | [模块说明](bun/README.md) |
-| [docker](docker/) | 通用安装 / Ubuntu 官方 apt 源 | `./install.sh` · `./ubuntu-install.sh` | [模块说明](docker/README.md) |
+| [bun](bun/) | 安装 Bun（官方脚本 / 编译） | `./install.sh` · `./build-from-source.sh` | [模块说明](bun/README.md) · [安装详解](docs/bun/install.md) |
+| [docker](docker/) | Windows / Linux / macOS 安装 Docker | `./install.sh` · `./ubuntu-install.sh` · `./build-from-source.sh` | [模块说明](docker/README.md) · [安装详解](docs/docker/install.md) |
 | [mysql](mysql/) | MySQL 8.4（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](mysql/README.md) · [参数](docs/mysql/parameters.md) |
 | [redis](redis/) | Redis 7.4（仅密码 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](redis/README.md) · [参数](docs/redis/parameters.md) |
 | [pgsql](pgsql/) | PostgreSQL 16（root / 123456，数据 `./data`） | `docker-compose.yml` | [模块说明](pgsql/README.md) · [参数](docs/pgsql/parameters.md) |
@@ -65,25 +71,21 @@
 ### 快速一览
 
 ```bash
-# 运行时
+# 1) 安装 Docker（强烈推荐，后续组件均按 Compose 部署）
+cd docker && ./install.sh          # Linux 便捷脚本
+# Windows / macOS 见 docs/docker/install.md（Docker Desktop）
+
+# 2) （可选）开发机安装 Bun
 cd bun && ./install.sh
 
-# 容器引擎（推荐便捷脚本；Ubuntu 可用官方源）
-cd docker && ./install.sh
-# cd docker && ./ubuntu-install.sh
-
-# 中间件（数据映射到各模块 ./data）
+# 3) 用 Docker 拉起中间件
 cd mysql && docker compose up -d
 cd redis && docker compose up -d
 cd pgsql && docker compose up -d
-
-# MinIO（未阉割钉死版；Nginx 片段见 minio/nginx/minio.conf）
 cd minio && docker compose up -d
-
-# Open WebUI（按需取消注释 OPENAI_API_BASE_URL / OPENAI_API_KEY）
 cd openwebui && docker compose up -d
 
-# GitLab CE（先改 YOUR_IP_ADDRESS，再 compose up）
+# GitLab CE（先改 YOUR_IP_ADDRESS）
 cd gitlab && ./main.sh help
 ```
 
@@ -91,31 +93,22 @@ cd gitlab && ./main.sh help
 
 ## 典型链路
 
-从裸机到可用的 GitLab，推荐顺序：
-
 ```text
-docker/ 安装引擎  →  gitlab/ 部署 CE  →  main.sh 取密 / 验收
+docker/ 安装引擎（推荐） → Compose 部署 mysql/redis/pgsql/minio/... 
          ↑
     bun/（可选，开发机运行时）
 ```
-
-GitLab 模块当前钉死镜像：`gitlab/gitlab-ce:18.9.2-ce.0`  
-HTTP `5401` · SSH Git `5403` · 占位符 `YOUR_IP_ADDRESS`
 
 ---
 
 ## 新增模块
 
-按 ADS 脚手架扩展，保持一目录一服务：
-
 ```bash
 cp -r templates/module <新模块名>
-# 1. 编辑 <新模块名>/README.md 与入口脚本
-# 2. 需要长文时创建 docs/<新模块名>/
-# 3. 在本页「模块目录」表追加一行
+# 编辑 README 与入口；长文放 docs/<新模块名>/；更新本页模块表
 ```
 
-模块必备清单与脚本约定见 [ADS 规范](docs/conventions.md)。
+规范见 [ADS](docs/conventions.md)。
 
 ---
 
@@ -124,7 +117,7 @@ cp -r templates/module <新模块名>
 - **规范唯一权威**：`docs/conventions.md`  
 - **长文归属**：仅 `docs/`  
 - **提交说明**：中文（在明确要求提交时）  
-- **Serena**：项目记忆与符号索引位于 `.serena/`（本地配置已忽略）  
+- **Serena**：`.serena/`（本地配置已忽略）  
 
 ---
 

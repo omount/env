@@ -11,6 +11,10 @@
 **/venv/
 minio/examples/go/go.sum
 
+# 源码编译工作区
+bun/src/
+docker/src/
+
 # 编辑器 / 系统杂项
 .DS_Store
 Thumbs.db

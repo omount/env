@@ -2,16 +2,28 @@
 
 安装 [Bun](https://bun.sh/) 运行时。
 
-## 前置条件
+## 官方出处
 
-- Linux / macOS：可用 `curl`、`bash`
-- Windows：建议在 Git Bash 下执行本脚本，或直接在 PowerShell 中安装
+- 安装总览：https://bun.sh/docs/installation  
+- Linux/macOS 脚本：`curl -fsSL https://bun.sh/install | bash`  
+- Windows 脚本：`irm bun.sh/install.ps1 | iex`  
+- 源码编译：https://bun.com/docs/project/contributing  
 
-## 使用
+详解：[docs/bun/install.md](../docs/bun/install.md)
+
+## 官方脚本安装（推荐）
 
 ```bash
 cd bun
 ./install.sh
+```
+
+## 从源码编译
+
+```bash
+cd bun
+./build-from-source.sh          # debug
+./build-from-source.sh release  # release
 ```
 
 ## 验收
@@ -19,7 +31,3 @@ cd bun
 ```bash
 bun --version
 ```
-
-## 说明
-
-脚本按 `uname` 选择官方安装方式；Windows（MINGW/MSYS/CYGWIN）会调用 `powershell.exe`。

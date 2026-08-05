@@ -1,15 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# 来源: https://bun.sh/
+# 官方安装脚本封装
+# 出处:
+#   - 安装说明: https://bun.sh/docs/installation
+#   - Linux/macOS: https://bun.sh/install  (curl -fsSL https://bun.sh/install | bash)
+#   - Windows:     https://bun.sh/install.ps1  (irm bun.sh/install.ps1 | iex)
+# 详解: docs/bun/install.md
 
 usage() {
   cat <<'EOF'
 用法: ./install.sh
 
-按当前环境安装 Bun：
-  - Linux / macOS: curl 官方安装脚本
-  - Windows (Git Bash/MSYS 等): 调用 PowerShell 官方安装脚本
+按当前环境调用 Bun 官方安装脚本：
+  - Linux / macOS: curl -fsSL https://bun.sh/install | bash
+  - Windows (Git Bash/MSYS): powershell.exe 执行 irm bun.sh/install.ps1 | iex
+
+从源码编译请使用: ./build-from-source.sh
 EOF
 }
 
@@ -22,6 +29,7 @@ os="$(uname -s 2>/dev/null || echo unknown)"
 
 case "$os" in
   Linux*|Darwin*)
+    echo "使用官方脚本: curl -fsSL https://bun.sh/install | bash"
     curl -fsSL https://bun.sh/install | bash
     ;;
   MINGW*|MSYS*|CYGWIN*)
@@ -30,12 +38,16 @@ case "$os" in
       echo '  irm bun.sh/install.ps1 | iex' >&2
       exit 1
     fi
+    echo "使用官方脚本: irm bun.sh/install.ps1 | iex"
     powershell.exe -NoProfile -Command "irm bun.sh/install.ps1 | iex"
     ;;
   *)
     echo "无法识别的系统: $os" >&2
-    echo "Windows PowerShell 可手动执行: irm bun.sh/install.ps1 | iex" >&2
-    echo "macOS/Linux 可手动执行: curl -fsSL https://bun.sh/install | bash" >&2
+    echo "Linux/macOS: curl -fsSL https://bun.sh/install | bash" >&2
+    echo "Windows:     irm bun.sh/install.ps1 | iex" >&2
     exit 1
     ;;
 esac
+
+echo "安装完成。请执行: bun --version"
+echo "详解文档: docs/bun/install.md"
