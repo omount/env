@@ -1,0 +1,39 @@
+# 官方出处:
+#   https://docs.hoppscotch.io/documentation/self-host/community-edition/install-and-build
+#   AIO 镜像: hoppscotch/hoppscotch （本仓钉死 2026.7.0）
+# 本仓库: docs/hoppscotch/README.md
+# 最小可跑: 内置 Postgres + AIO；首次需 prisma migrate（见 README）
+# 账号: 在 Admin http://127.0.0.1:3310 按官方向导创建
+
+services:
+  hoppscotch-db:
+    image: postgres:16.9
+    container_name: hoppscotch-db
+    restart: always
+    environment:
+      POSTGRES_USER: hoppscotch
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: hoppscotch
+    volumes:
+      - ./data/pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hoppscotch -d hoppscotch"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  hoppscotch:
+    image: hoppscotch/hoppscotch:2026.7.0
+    container_name: hoppscotch
+    restart: always
+    depends_on:
+      hoppscotch-db:
+        condition: service_healthy
+    env_file:
+      - .env
+    ports:
+      # [ports] 避开 openwebui:3000 / grafana:3001
+      - "3300:3000"
+      - "3310:3100"
+      - "3170:3170"
+    # [command] 首次迁移见 README（compose run / exec prisma）
