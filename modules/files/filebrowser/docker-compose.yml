@@ -1,0 +1,24 @@
+# 官方出处:
+#   https://github.com/filebrowser/filebrowser/blob/master/www/docs/installation.md
+#   Hub: https://hub.docker.com/r/filebrowser/filebrowser （tag v2.32.3）
+# 本仓库: docs/filebrowser/README.md
+# 最小可跑: Alpine 镜像；/srv 为可浏览目录；/database 持久化
+# 账号: 用户 admin；密码首次启动随机生成，见 docker logs（官方行为）
+# 注意: 上游已宣布归档，仅作本地演示；勿对公网裸奔
+
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:v2.32.3
+    container_name: filebrowser
+    restart: always
+    ports:
+      - "8084:80"
+    volumes:
+      # [挂载] 被浏览的文件根
+      - ./srv:/srv
+      # [挂载] 数据库与用户（官方 /database）
+      - ./data:/database
+    # [user] 默认容器内 1000:1000；权限不足时可调整
+    # user: "1000:1000"
+    # [command] 改密（数据库已初始化后）:
+    # docker compose run --rm filebrowser users update admin --password '123456'
