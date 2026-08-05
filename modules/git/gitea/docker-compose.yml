@@ -1,0 +1,35 @@
+# 官方出处:
+#   https://docs.gitea.com/installation/install-with-docker
+#   官方示例镜像: docker.gitea.com/gitea:1.27.1（Hub 同源 gitea/gitea:1.27.1）
+#   上游: https://github.com/go-gitea/gitea
+# 本仓库: docs/gitea/README.md
+# 最小可跑: SQLite；Web 3002→3000（避开 openwebui:3000）；SSH 2222→22
+# 账号: 首次打开安装向导自行创建管理员（无预置密码）
+
+services:
+  gitea:
+    image: gitea/gitea:1.27.1
+    container_name: gitea
+    restart: always
+    environment:
+      # [environment] 建议与宿主机数据目录属主一致
+      USER_UID: "1000"
+      USER_GID: "1000"
+      # [environment] 根 URL（宿主机端口 3002 时建议设置）
+      GITEA__server__ROOT_URL: http://127.0.0.1:3002/
+      # [environment] 禁用注册（生产建议 true）— 演示可 false
+      # GITEA__service__DISABLE_REGISTRATION: "false"
+      # [environment] 外置 MySQL 时取消注释并依赖 db（见官方文档 Databases）
+      # GITEA__database__DB_TYPE: mysql
+      # GITEA__database__HOST: db:3306
+      # GITEA__database__NAME: gitea
+      # GITEA__database__USER: gitea
+      # GITEA__database__PASSWD: "123456"
+    volumes:
+      - ./data:/data
+      # [挂载] 时区（Linux；Windows 可注释掉）
+      # - /etc/timezone:/etc/timezone:ro
+      # - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3002:3000"
+      - "2222:22"
