@@ -1,22 +1,13 @@
 # Suggested commands
 
-Windows PowerShell listing/search differs from unix:
+Windows: `Get-ChildItem -Recurse -Name`; Grep/`rg`/`Select-String`
+Serena: `serena memories check`
 
-- List: `Get-ChildItem -Recurse -Name`
-- Search: Cursor Grep / `rg` / `Select-String`
-- Serena: `serena memories check` from project root
-
-Module entrypoints (bash / Git Bash):
-
-- `bun/install.sh`
-- `docker/install.sh` / `docker/install.sh --test`
-- `docker/ubuntu-install.sh`
+Entrypoints:
+- `bun/install.sh` `docker/install.sh[--test]` `docker/ubuntu-install.sh`
+- `mysql|redis|pgsql|openwebui|minio`: `docker compose up -d`
 - `gitlab/main.sh shell|show-password|reset-password|help`
+- MinIO examples: `python examples/python/upload.py`; `node examples/nodejs/upload.js`; `go run .` in `examples/go`
+- Public object URL: `http://127.0.0.1:9000/data/<key>`
 
-GitLab host after deploy:
-
-- `docker compose up -d`
-- `docker logs -f gitlab`
-- `curl -sI http://127.0.0.1:5401/-/readiness`
-
-No project-local test/lint/format entrypoints.
+GitLab host: compose up, logs, readiness on :5401
