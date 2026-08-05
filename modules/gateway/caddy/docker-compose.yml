@@ -1,0 +1,26 @@
+# 官方出处:
+#   Hub: https://hub.docker.com/_/caddy （tag 2.11.4）
+#   文档: https://caddyserver.com/docs/install#docker
+#   上游: https://github.com/caddyserver/caddy
+# 本仓库: docs/caddy/README.md
+# 最小可跑: 内置默认站点；宿主机 8089→80（避开 nginx 8088）
+# 账号: 无（静态/反向代理；鉴权需 Caddyfile）
+
+services:
+  caddy:
+    image: caddy:2.11.4
+    container_name: caddy
+    restart: always
+    ports:
+      - "8089:80"
+      # [ports] HTTPS
+      # - "8443:443"
+      # - "2019:2019"
+    volumes:
+      # [挂载 conf] 自定义 Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./data:/data
+      - ./config:/config
+      # [挂载] 静态站点根
+      - ./site:/srv:ro
+    # [command] 一般无需；默认 caddy run --config /etc/caddy/Caddyfile
