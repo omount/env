@@ -1,0 +1,20 @@
+# 官方出处:
+#   Hub: https://hub.docker.com/_/registry （tag 2.8.3）
+#   文档: https://distribution.github.io/distribution/
+# 本仓库: docs/registry/README.md
+# 最小可跑: 无 TLS / 无认证（仅本地演示；生产必须鉴权+TLS）
+# 账号: 无
+
+services:
+  registry:
+    image: registry:2.8.3
+    container_name: registry
+    restart: always
+    ports:
+      - "5000:5000"
+    # [environment] REGISTRY_STORAGE_DELETE_ENABLED: "true"；允许删除，演示可选；如需启用请新增 environment 块
+    # [environment] REGISTRY_AUTH / REGISTRY_AUTH_HTPASSWD_*；htpasswd 鉴权，生产必配；如需启用请新增 environment 块
+    volumes:
+      - ./data:/var/lib/registry
+      # [挂载 conf] 自定义 config.yml
+      # - ./config.yml:/etc/docker/registry/config.yml:ro
