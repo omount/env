@@ -25,7 +25,7 @@ docker compose up -d
 | 用户 | `root`（`MONGO_INITDB_ROOT_USERNAME`） |
 | 密码 | `123456`（`MONGO_INITDB_ROOT_PASSWORD`） |
 | 认证库 | `admin` |
-| 数据卷 | `./data` → `/data/db` |
+| 数据卷 | `./data/db` → `/data/db` |
 
 连接串示例：
 
@@ -48,6 +48,7 @@ docker exec mongodb mongosh -u root -p 123456 --authenticationDatabase admin --e
 
 ## 说明
 
+- `./data/.gitignore` 保留空目录；MongoDB 数据写入 `./data/db`
 - 演示口令仅归档用；可配置项见 compose 注释
 - 详解：[docs/mongodb/README.md](../../../docs/mongodb/README.md)
 

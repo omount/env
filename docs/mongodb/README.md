@@ -13,4 +13,4 @@
 |----|------|--------|
 | 镜像 | `mongo` | 钉死 `mongo:7.0.16` |
 | 认证 | `MONGO_INITDB_ROOT_*` | root / 123456 |
-| 数据 | `/data/db` | `./data` |
+| 数据 | `/data/db` | `./data/db`，宿主机使用子目录避开 `data/.gitignore` |
