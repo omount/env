@@ -33,7 +33,7 @@
 | 项 | 作用 |
 |----|------|
 | `shm_size: 128mb` | 官方 Compose 示例建议；按需在 compose 中取消注释。 |
-| `./data` → `/var/lib/postgresql/data` | **PG17 及以下必须挂到 `.../data`**，挂 `/var/lib/postgresql` 不会持久化。 |
+| `./data/pgdata` → `/var/lib/postgresql/data` | **PG17 及以下容器内必须挂到 `.../data`**，宿主机使用子目录避开 `data/.gitignore`。 |
 | `./initdb` → `/docker-entrypoint-initdb.d` | 首次初始化执行 `*.sql` / `*.sql.gz` / `*.sh`。 |
 | 自定义 `postgresql.conf` | 挂载后通过 `command: ["postgres", "-c", "config_file=..."]` 启用。 |
 

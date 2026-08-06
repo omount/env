@@ -37,8 +37,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      # PG16 及以下：必须挂载到 /var/lib/postgresql/data（挂 /var/lib/postgresql 不会持久化）
-      - ./data:/var/lib/postgresql/data
+      # PG16 及以下：容器内必须挂载到 /var/lib/postgresql/data；宿主机使用子目录避开 data/.gitignore
+      - ./data/pgdata:/var/lib/postgresql/data
       # 首次初始化脚本：*.sql / *.sql.gz / *.sh（仅空数据目录时执行）
       # - ./initdb:/docker-entrypoint-initdb.d
       # 自定义配置文件示例（需配合 command -c config_file=...）
