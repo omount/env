@@ -1,7 +1,8 @@
-﻿# 杩愯鏃舵暟鎹紙淇濈暀鐩綍鍐?.gitignore锛?**/data/**
+﻿# 运行时数据（保留目录内 .gitignore）
+**/data/**
 !**/data/.gitignore
 
-# 绀轰緥渚濊禆涓庣紦瀛橈紙闈炰富浣擄級
+# 示例依赖与缓存（非主体）
 **/node_modules/
 **/package-lock.json
 **/__pycache__/
@@ -11,11 +12,12 @@
 minio/examples/go/go.sum
 modules/storage/minio/examples/go/go.sum
 
-# 婧愮爜缂栬瘧宸ヤ綔鍖?modules/runtime/bun/src/
+# 源码编译工作区
+modules/runtime/bun/src/
 modules/runtime/docker/src/
 modules/runtime/nodejs/src/
 
-# 缂栬緫鍣?/ 绯荤粺鏉傞」
+# 编辑器 / 系统杂项
 .DS_Store
 Thumbs.db
 .idea/
