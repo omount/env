@@ -106,6 +106,10 @@ Compose 模块须同时满足：
 
 仅 `install.sh` 的 runtime 模块（bun / nodejs / docker）不强制本条。  
 
+### 5.2 数据目录挂载
+
+模块可用 `data/.gitignore` 保留空数据目录并忽略运行时文件。若官方镜像在首次启动时会对数据目录执行 `initdb` / datadir 初始化，禁止把含 `.gitignore` 的 `./data` 根目录直接挂到容器数据目录；须挂载 `./data/<service-data>` 子目录，例如 `./data/pgdata` → `/var/lib/postgresql/data`、`./data/mysqldata` → `/var/lib/mysql`、`./data/db` → `/data/db`。MySQL 不使用 `./data/mysql`，避免撞到旧直挂数据中的内部系统库目录。
+
 ---
 
 ## 6. 文档与 Git
