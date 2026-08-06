@@ -12,7 +12,7 @@
 | MySQL 环境变量（服务端） | https://dev.mysql.com/doc/refman/8.4/en/environment-variables.html |
 | 列出全部 mysqld 选项 | `docker run -it --rm mysql:8.4 --verbose --help` |
 
-> 以下 Docker 专用环境变量**仅在数据目录为空（首次初始化）时生效**；已有 `./data` 时改环境变量不会改库内账号。
+> 以下 Docker 专用环境变量**仅在数据目录为空（首次初始化）时生效**；已有 `./data/mysqldata` 时改环境变量不会改库内账号。
 
 ## 环境变量
 
@@ -32,7 +32,7 @@
 
 | 挂载 | 作用 |
 |------|------|
-| `./data` → `/var/lib/mysql` | 数据文件持久化（本模板已启用）。 |
+| `./data/mysqldata` → `/var/lib/mysql` | 数据文件持久化；宿主机使用子目录避开 `data/.gitignore` 与 MySQL 内部 `mysql/` 目录。 |
 | `./conf.d` → `/etc/mysql/conf.d` | 自定义 `.cnf` 配置片段。 |
 | `./initdb` → `/docker-entrypoint-initdb.d` | 首次初始化执行 `.sh` / `.sql` / `.sql.gz` 等脚本。 |
 

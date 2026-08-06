@@ -39,8 +39,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      # 数据目录（官方默认路径）
-      - ./data:/var/lib/mysql
+      # 数据目录（官方默认路径）；宿主机使用子目录避开 data/.gitignore 与 MySQL 内部 mysql/ 目录
+      - ./data/mysqldata:/var/lib/mysql
       # 自定义 cnf 片段目录（目录内 *.cnf 会覆盖/追加默认配置）
       # - ./conf.d:/etc/mysql/conf.d
       # 首次初始化脚本：.sh / .sql / .sql.gz / .sql.bz2 / .sql.xz / .sql.zst（按文件名排序执行）

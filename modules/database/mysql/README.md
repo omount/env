@@ -1,6 +1,6 @@
 # MySQL 8.4
 
-官方镜像单机部署。账号 `root` / `123456`，数据目录映射到 `./data`。
+官方镜像单机部署。账号 `root` / `123456`，数据目录映射到 `./data/mysqldata`。
 
 ## 前置条件
 
@@ -24,17 +24,17 @@ docker compose down
 
 ### docker run
 
-与 compose 等价（需在 `mysql` 目录执行，以便 `./data` 落在本模块下）：
+与 compose 等价（需在 `mysql` 目录执行，以便 `./data/mysqldata` 落在本模块下）：
 
 ```bash
 cd modules/database/mysql
-mkdir -p data
+mkdir -p data/mysqldata
 docker run -d \
   --name mysql \
   --restart always \
   -e MYSQL_ROOT_PASSWORD=123456 \
   -p 3306:3306 \
-  -v "$(pwd)/data:/var/lib/mysql" \
+  -v "$(pwd)/data/mysqldata:/var/lib/mysql" \
   mysql:8.4 \
   --character-set-server=utf8mb4 \
   --collation-server=utf8mb4_unicode_ci \
@@ -55,7 +55,7 @@ docker stop mysql && docker rm mysql
 | 端口 | `3306` |
 | 用户 | `root` |
 | 密码 | `123456` |
-| 数据卷 | `./data` → `/var/lib/mysql` |
+| 数据卷 | `./data/mysqldata` → `/var/lib/mysql` |
 
 ```bash
 docker exec -it mysql mysql -uroot -p123456
@@ -72,7 +72,7 @@ docker exec -it mysql mysqladmin ping -uroot -p123456
 
 - 字符集默认 `utf8mb4`
 - 已显式开启 `ONLY_FULL_GROUP_BY`（随 `sql_mode` 一并设置）
-- `./data` 已 gitignore，勿把库文件提交进仓库
+- `./data/.gitignore` 保留空目录；MySQL 数据写入 `./data/mysqldata`，勿把库文件提交进仓库
 - 密码仅作归档演示，生产请自行更换
 
 ## 参数与官方文档
