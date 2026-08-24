@@ -7,6 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Compose](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
 [![Modules](https://img.shields.io/badge/modules-31+-green.svg)](catalog.yml)
+[![OrcaRouter](https://img.shields.io/badge/OrcaRouter-LLM%20Gateway-111827)](https://www.orcarouter.ai/ref/ref_9dc87427687cbb054d76)
 
 权威规范：[docs/conventions.md](docs/conventions.md) · 模块清单：[catalog.yml](catalog.yml)
 
@@ -197,6 +198,12 @@ gitea · caddy · phpmyadmin · pgadmin · redisinsight · hoppscotch · filebro
 cp -r templates/module modules/<category>/<name>
 # 编辑 compose / README；登记 catalog.yml；更新本页表格
 ```
+
+---
+
+## Sponsors
+
+[OrcaRouter](https://www.orcarouter.ai/ref/ref_9dc87427687cbb054d76) 赞助本仓库。OpenAI 兼容的大模型 API 网关，可在 200+ 模型间自适应路由。通过该推广链接注册可支持本仓库维护。
 
 ---
 
