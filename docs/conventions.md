@@ -212,7 +212,7 @@ cp -r templates/module modules/<category>/<name>
 | minio | 钉死未阉割社区版（禁止 `:latest`）；默认桶名 `data`；默认**公开读**；直传使用 **AWS S3 SDK**（不用 MinIO SDK）；签名读见 `docs/minio/access.md` |
 | elk | 基于官方 8.17 Compose（钉死 `8.17.10`）；`elastic`/`kibana_system` 密码按官方 `.env` 规则；单节点裁剪；Logstash 按官方 Docker 配置挂载 pipeline，ES output 用 `ssl_certificate_authorities`；见 `docs/elk/README.md` |
 | grafana | 钉死 `grafana/grafana:11.5.2`；`admin` / `123456`；宿主机端口 `3001`（避开 openwebui `3000`） |
-| openwebui | 钉死版本 tag；`OPENAI_API_BASE_URL` / `OPENAI_API_KEY` 默认注释，按需填写 |
+| openwebui | 钉死版本 tag；`OPENAI_API_BASE_URL` / `OPENAI_API_KEY` 默认注释，按需填写；提供 OrcaRouter 直连示例 |
 | gitlab | 钉死 CE 小版本；模块短 README；长文 `docs/gitlab/pitfalls.md` |
 | bun / docker / nodejs | 安装遵循第 10 节（官方脚本出处 + 封装 + 编译方案） |
 
