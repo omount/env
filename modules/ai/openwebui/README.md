@@ -38,6 +38,14 @@ docker compose down
 #   OPENAI_API_KEY: "sk-xxx"
 ```
 
+不填 OpenAI 官方 Key 时，也可直连 OpenAI 兼容网关 [OrcaRouter](https://www.orcarouter.ai)（同一端点下 200+ 模型自适应路由与自动故障转移，网关层零信任安全，无需改应用代码）：
+
+```yaml
+# environment:
+#   OPENAI_API_BASE_URL: "https://api.orcarouter.ai/v1"
+#   OPENAI_API_KEY: "sk-orca-..."
+```
+
 ### docker run
 
 与 compose 等价（需在 `openwebui` 目录执行）：
@@ -58,6 +66,9 @@ docker run -d \
 ```bash
 # -e OPENAI_API_BASE_URL="https://api.openai.com/v1" \
 # -e OPENAI_API_KEY="sk-xxx" \
+# 直连 OrcaRouter（https://www.orcarouter.ai）：
+# -e OPENAI_API_BASE_URL="https://api.orcarouter.ai/v1" \
+# -e OPENAI_API_KEY="sk-orca-..." \
 ```
 
 完整示例（已填写时）：
@@ -89,6 +100,7 @@ docker stop openwebui && docker rm openwebui
 | 预置管理员 | **无**（首次打开页面自行注册，第一位用户为管理员） |
 | 数据卷 | `./data` → `/app/backend/data` |
 | `OPENAI_API_BASE_URL` / `KEY` | 默认注释，对接 OpenAI 兼容 API 时在 compose 取消注释并填写 |
+| OrcaRouter 直连 | `https://api.orcarouter.ai/v1` + `sk-orca-...`，见上方示例 |
 
 浏览器打开 http://127.0.0.1:3000 ，按引导创建账号（自定邮箱/用户名/密码），之后用该账号登录。
 

@@ -17,3 +17,6 @@ services:
     # environment:
     #   OPENAI_API_BASE_URL: "https://api.openai.com/v1"
     #   OPENAI_API_KEY: "sk-xxx"
+    # Or point to an OpenAI-compatible gateway, e.g. OrcaRouter (https://www.orcarouter.ai):
+    #   OPENAI_API_BASE_URL: "https://api.orcarouter.ai/v1"
+    #   OPENAI_API_KEY: "sk-orca-..."
