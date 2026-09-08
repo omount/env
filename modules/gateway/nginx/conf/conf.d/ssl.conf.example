@@ -1,0 +1,22 @@
+# TLS 示例。复制为 ssl.conf 后才会被 include（nginx 只加载 *.conf）
+# 同时：准备证书、compose 取消注释 8443:443 与 ./certs 挂载
+# https://nginx.org/en/docs/http/configuring_https_servers.html
+#
+# server {
+#     listen 443 ssl;
+#     server_name ssl.example.com;
+#
+#     ssl_certificate     /etc/nginx/certs/fullchain.pem;
+#     ssl_certificate_key /etc/nginx/certs/privkey.pem;
+#     ssl_session_timeout 1d;
+#     ssl_session_cache shared:SSL:10m;
+#
+#     location / {
+#         proxy_pass http://127.0.0.1:3000;
+#         proxy_http_version 1.1;
+#         proxy_set_header Host $host;
+#         proxy_set_header X-Real-IP $remote_addr;
+#         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#         proxy_set_header X-Forwarded-Proto $scheme;
+#     }
+# }
